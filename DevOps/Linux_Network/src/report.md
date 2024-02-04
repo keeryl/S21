@@ -269,11 +269,50 @@ iptables -X
 
 ЗАДАЧА: поднять пять виртуальных машин (3 рабочие станции (ws11, ws21, ws22) и 2 роутера (r1, r2)).
 
+Скрин пяти виртуальных машин:
+![](./screenshots/5.1.png)
+
 #### 5.1. Настройка адресов машин
 
 ЗАДАЧА: настроить конфигурации машин в *etc/netplan/00-installer-config.yaml* согласно сети на рисунке. В отчёт помести скрины с содержанием файла *etc/netplan/00-installer-config.yaml* для каждой машины.
 
+Вывод 00-installer-config.yaml для r1:
+![](./screenshots/5.2.png)
+
+Вывод 00-installer-config.yaml для r2:
+![](./screenshots/5.3.png)
+
+Вывод 00-installer-config.yaml для ws11:
+![](./screenshots/5.4.png)
+
+Вывод 00-installer-config.yaml для ws21:
+![](./screenshots/5.5.png)
+
+Вывод 00-installer-config.yaml для ws22:
+![](./screenshots/5.6.png)
+
 ЗАДАЧА: перезапустить сервис сети. Если ошибок нет, то командой `ip -4 a` проверить, что адрес машины задан верно. Также пропинговать ws22 с ws21. Аналогично пропинговать r1 с ws11. В отчёт поместить скрины с вызовом и выводом использованных команд.
+
+Вывод `ip -4 a` для r1:
+![](./screenshots/5.7.png)
+
+Вывод `ip -4 a` для r2:
+![](./screenshots/5.8.png)
+
+Вывод `ip -4 a` для ws11:
+![](./screenshots/5.9.png)
+
+Вывод `ip -4 a` для ws21:
+![](./screenshots/5.10.png)
+
+Вывод `ip -4 a` для ws22:
+![](./screenshots/5.11.png)
+
+Вывод ping ws22 c ws21:
+![](./screenshots/5.12.png)
+
+Вывод ping r1 c ws11:
+![](./screenshots/5.13.png)
 
 #### 5.2. Включение переадресации IP-адресов
 
