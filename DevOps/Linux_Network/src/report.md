@@ -452,6 +452,95 @@ default via 10.10.0.1 dev eth0
 
 ## Part 6. Динамическая настройка IP с помощью DHCP
 
+Для r2 настроить в файле */etc/dhcp/dhcpd.conf* конфигурацию службы DHCP:, а именно: указать для r2 адрес маршрутизатора по-умолчанию, DNS-сервер и адрес внутренней сети.
+
+- Устанавливаем dhcpd server командой `sudo apt install isc-dhcp-server`. После этого в директории etc/dhcp/ появится dhcpd.conf файл, которого у меня до этого не было.
+
+Вывод `cat /etc/dhcp/dhcpd.conf` для r2:
+![](./screenshots/6.1.png)
+
+Пример файла для r2:
+```shell
+subnet 10.100.0.0 netmask 255.255.0.0 {}
+
+subnet 10.20.0.0 netmask 255.255.255.192
+{
+    range 10.20.0.2 10.20.0.50;
+    option routers 10.20.0.1;
+    option domain-name-servers 10.20.0.1;
+}
+```
+ЗАДАЧА: в файле *resolv.conf* для r2 прописать `nameserver 8.8.8.8`. В отчёт поместить скрины с содержанием изменённых файлов.
+
+Вывод `cat etc/resolv.conf` для r2:
+![](./screenshots/6.2.png)
+
+ЗАДАЧА: перезагрузить службу DHCP командой `systemctl restart isc-dhcp-server`. Машину ws21 перезагрузить при помощи `reboot` и через `ip a` показать, что она получила адрес. Также пропингуй ws22 с ws21. В отчёт поместить скрины с вызовом и выводом использованных команд.
+
+Вывод `systemctl restart isc-dhcp-server` для r2:
+![](./screenshots/6.3.png)
+
+- Перезагрузку машины ws21 выполняем командой sudo reboot
+
+Вывод `ip a` для ws21:
+![](./screenshots/6.4.png)
+
+Вывод ping ws22 c ws21:
+![](./screenshots/6.5.png)
+
+
+ЗАДАЧА: указать MAC адрес у ws11, для этого в *etc/netplan/00-installer-config.yaml* надо добавить строки: `macaddress: 10:10:10:10:10:BA`, `dhcp4: true`. В отчёт поместить скрин с содержанием изменённого файла *etc/netplan/00-installer-config.yaml*.
+
+Вывод `cat etc/netplan/00-installer-config.yaml` для ws11:
+![](./screenshots/6.6.png)
+
+- Перезагружаем машины ws11 командой sudo reboot
+
+Вывод `ip a` для ws11:
+![](./screenshots/6.7.png)
+
+ЗАДАЧА: для r1 настроить аналогично r2, но сделать выдачу адресов с жесткой привязкой к MAC-адресу (ws11). Провести аналогичные тесты. В отчёте этот пункт описать аналогично настройке для r2.
+
+- Устанавливаем на r1 dhcpd server командой `sudo apt install isc-dhcp-server`.
+
+Вывод `cat /etc/dhcp/dhcpd.conf` для r1:
+![](./screenshots/6.8.png)
+
+Вывод `cat etc/resolv.conf` для r1:
+![](./screenshots/6.9.png)
+
+Вывод `systemctl restart isc-dhcp-server` для r1:
+![](./screenshots/6.10.png)
+
+- Перезагрузку машины ws21 выполняем командой sudo reboot
+
+Вывод `ip a` для ws21:
+![](./screenshots/6.11.png)
+
+Вывод ping ws21 c ws11:
+![](./screenshots/6.12.png)
+
+ЗАДАЧА: запросить с ws21 обновление ip адреса. В отчёте поместить скрины ip до и после обновления.
+
+Вывод `ip a` для ws21 до обновления:
+![](./screenshots/6.13.png)
+
+Вывод `sudo dhclient -v` для ws21:
+![](./screenshots/6.14.png)
+
+Вывод `ip a` для ws21 после обновления:
+![](./screenshots/6.15.png)
+
+ЗАДАЧА: В отчёте опиши, какими опциями DHCP сервера пользовался в данном пункте.
+
+Были использованы следующие опции DHCP сервера:
+1) option routers - эта опция определяет перечень IP адресов для маршрутизаторов на подсети клиента.
+2) option domain-name-servers - опция определяет по каким адресам на клиенте доступны сервера DNS.
+
+ЗАДАЧА: сохранить дампы образов виртуальных машин. Ни в коем случае не сохраняй дампы в гит!
+
+- в UTM отсутствует функция сохранения дампов образов.
+
 ## Part 7. NAT
 
 ## Part 8. Дополнительно. Знакомство с SSH Tunnels
