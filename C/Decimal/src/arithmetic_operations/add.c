@@ -34,3 +34,14 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
   }
   return status_code;
 }
+
+void bitwise_add_bd(s21_bd bd_1, s21_bd bd_2, s21_bd* res) {
+  *res = init_bd();
+  int memory = 0;
+  for (int i = 0; i < 224; i++) {
+    int bit_to_set = get_bit_bd(bd_1, i) + get_bit_bd(bd_2, i) + memory;
+    memory = bit_to_set / 2;
+    bit_to_set %= 2;
+    set_bit_bd(res, i, bit_to_set);
+  }
+}
