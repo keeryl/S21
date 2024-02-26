@@ -45,3 +45,9 @@ void bitwise_add_bd(s21_bd bd_1, s21_bd bd_2, s21_bd* res) {
     set_bit_bd(res, i, bit_to_set);
   }
 }
+
+void handle_add_bd(s21_bd bd_1, s21_bd bd_2, s21_bd* res, int sc, int sign) {
+  bitwise_add_bd(bd_1, bd_2, res);
+  set_scale_bd(res, sc);
+  set_sign_bd(res, sign);
+}
