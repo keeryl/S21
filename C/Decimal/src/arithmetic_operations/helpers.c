@@ -37,3 +37,10 @@ s21_decimal init_decimal(void) {
   s21_decimal res = {0};
   return res;
 }
+
+s21_bd convert_to_bd(s21_decimal dec) {
+  s21_bd res = {0};
+  for (int i = 0; i < 3; i++) res.bits[i] = dec.bits[i];
+  res.bits[7] = dec.bits[3];
+  return res;
+}
