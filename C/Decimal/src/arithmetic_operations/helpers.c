@@ -44,3 +44,8 @@ s21_bd convert_to_bd(s21_decimal dec) {
   res.bits[7] = dec.bits[3];
   return res;
 }
+
+void set_bit_bd(s21_bd* bd, int idx, int val) {
+  if (val == 1) bd->bits[idx / 32] |= (1u << (idx % 32));
+  if (val == 0) bd->bits[idx / 32] &= ~(1u << (idx % 32));
+}
