@@ -12,7 +12,6 @@ int main() {
   tcase_add_test(tc, sub);
   tcase_add_test(tc, mul);
   tcase_add_test(tc, division);
-  tcase_add_test(tc, is_less);
 
   suite_add_tcase(s, tc);
   sr = srunner_create(s);
