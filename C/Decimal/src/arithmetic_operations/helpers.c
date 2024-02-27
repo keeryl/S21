@@ -27,3 +27,13 @@
 // }
 
 // DEBUG HELPERS END
+
+s21_bd init_bd(void) {
+  s21_bd res = {0};
+  return res;
+}
+
+s21_decimal init_decimal(void) {
+  s21_decimal res = {0};
+  return res;
+}
