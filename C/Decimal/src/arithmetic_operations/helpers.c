@@ -49,3 +49,7 @@ void set_bit_bd(s21_bd* bd, int idx, int val) {
   if (val == 1) bd->bits[idx / 32] |= (1u << (idx % 32));
   if (val == 0) bd->bits[idx / 32] &= ~(1u << (idx % 32));
 }
+
+int get_bit_bd(s21_bd bd, int idx) {
+  return (bd.bits[idx / 32] & 1u << (idx % 32)) >> (idx % 32);
+}
