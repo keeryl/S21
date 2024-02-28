@@ -53,3 +53,10 @@ void set_bit_bd(s21_bd* bd, int idx, int val) {
 int get_bit_bd(s21_bd bd, int idx) {
   return (bd.bits[idx / 32] & 1u << (idx % 32)) >> (idx % 32);
 }
+
+void set_scale_bd(s21_bd* bd, int val) {
+  int sign = get_sign_bd(*bd);
+  bd->bits[7] = 0;
+  bd->bits[7] |= (val << 16);
+  set_sign_bd(bd, sign);
+}
