@@ -60,3 +60,10 @@ void set_scale_bd(s21_bd* bd, int val) {
   bd->bits[7] |= (val << 16);
   set_sign_bd(bd, sign);
 }
+
+void set_scale(s21_decimal* decimal, int val) {
+  int sign = get_sign(*decimal);
+  decimal->bits[3] = 0;
+  decimal->bits[3] |= (val << 16);
+  s21_set_sign(decimal, sign);
+}
