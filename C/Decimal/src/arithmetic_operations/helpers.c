@@ -71,3 +71,9 @@ void set_scale(s21_decimal* decimal, int val) {
 int get_scale_bd(s21_bd bd) { return (bd.bits[7] & SCALE) >> 16; }
 
 int get_scale(s21_decimal dec) { return (dec.bits[3] & SCALE) >> 16; }
+
+void set_sign_bd(s21_bd* bd, int val) {
+  bd->bits[7] <<= 1;
+  bd->bits[7] >>= 1;
+  bd->bits[7] |= ((unsigned)val << 31);
+}
