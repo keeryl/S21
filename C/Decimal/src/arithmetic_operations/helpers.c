@@ -77,3 +77,5 @@ void set_sign_bd(s21_bd* bd, int val) {
   bd->bits[7] >>= 1;
   bd->bits[7] |= ((unsigned)val << 31);
 }
+
+int get_sign_bd(s21_bd bd) { return (bd.bits[7] & SIGN) >> 31; }
