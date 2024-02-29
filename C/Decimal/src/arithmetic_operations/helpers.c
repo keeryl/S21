@@ -79,3 +79,17 @@ void set_sign_bd(s21_bd* bd, int val) {
 }
 
 int get_sign_bd(s21_bd bd) { return (bd.bits[7] & SIGN) >> 31; }
+
+s21_bd shift_left_bd(s21_bd bd, int shift_val) {
+  s21_bd res = bd;
+  if (shift_val <= 31 && shift_val) {
+    unsigned memory = 0;
+    for (int i = 0; i < 7; i++) {
+      unsigned temp = res.bits[i];
+      res.bits[i] <<= shift_val;
+      res.bits[i] |= memory;
+      memory = temp >> (32 - shift_val);
+    }
+  }
+  return res;
+}
