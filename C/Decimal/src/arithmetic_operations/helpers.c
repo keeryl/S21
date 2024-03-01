@@ -93,3 +93,13 @@ s21_bd shift_left_bd(s21_bd bd, int shift_val) {
   }
   return res;
 }
+
+void normalize_bd(s21_bd* bd_1, s21_bd* bd_2) {
+  while (get_scale_bd(*bd_1) != get_scale_bd(*bd_2)) {
+    if (get_scale_bd(*bd_1) > get_scale_bd(*bd_2)) {
+      handle_normalization_bd(bd_2);
+    } else {
+      handle_normalization_bd(bd_1);
+    }
+  }
+}
