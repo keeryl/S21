@@ -103,3 +103,10 @@ void normalize_bd(s21_bd* bd_1, s21_bd* bd_2) {
     }
   }
 }
+
+void handle_normalization_bd(s21_bd* bd) {
+  s21_bd temp = init_bd();
+  bitwise_add_bd(shift_left_bd(*bd, 3), shift_left_bd(*bd, 1), &temp);
+  set_scale_bd(&temp, get_scale_bd(*bd) + 1);
+  *bd = temp;
+}
