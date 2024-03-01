@@ -110,3 +110,17 @@ void handle_normalization_bd(s21_bd* bd) {
   set_scale_bd(&temp, get_scale_bd(*bd) + 1);
   *bd = temp;
 }
+
+int compare_bd(s21_bd bd_1, s21_bd bd_2) {
+  int res = 0;
+  for (int i = 223; i >= 0 && res == 0; i--) {
+    int bd_1_bit = get_bit_bd(bd_1, i);
+    int bd_2_bit = get_bit_bd(bd_2, i);
+    if (bd_1_bit > bd_2_bit) res = 1;
+    if (bd_2_bit > bd_1_bit) res = 2;
+  }
+  return res;
+  // returns 1 if big_dec_1 is greater
+  // returns 2 if big_dec_2 is greater
+  // returns 0 if equal values
+}
