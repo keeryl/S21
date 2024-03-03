@@ -124,3 +124,10 @@ int compare_bd(s21_bd bd_1, s21_bd bd_2) {
   // returns 2 if big_dec_2 is greater
   // returns 0 if equal values
 }
+
+int is_zero_bd(s21_bd bd) {
+  int res = 1;
+  for (int i = 0; i < 7; i++)
+    if (bd.bits[i] != 0) res = 0;
+  return res;
+}
