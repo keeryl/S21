@@ -142,3 +142,22 @@ int is_zero_decimal(s21_decimal dec) {
 void mul_by_ten_bd(s21_bd* bd) {
   bitwise_add_bd(shift_left_bd(*bd, 3), shift_left_bd(*bd, 1), bd);
 }
+
+void scale_down_bd_if_overflow(s21_bd* bd) {
+  if (!is_zero_bd(*bd)) {
+    int sign = get_sign_bd(*bd);
+    int scale = get_scale_bd(*bd);
+    s21_bd temp_bd = *bd;
+    s21_bd ten_bd = init_bd();
+    ten_bd.bits[0] = 10;
+    s21_bd remainder = init_bd();
+    while (scale && is_overflow_in_decimal(&temp_bd)) {
+      remainder = bitwise_div_bd(temp_bd, ten_bd, &temp_bd);
+      scale -= 1;
+    }
+    handle_bank_rounding_bd(&temp_bd, remainder);
+    *bd = temp_bd;
+    set_scale_bd(bd, scale);
+    set_sign_bd(bd, sign);
+  }
+}
