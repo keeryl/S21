@@ -138,3 +138,7 @@ int is_zero_decimal(s21_decimal dec) {
     if (dec.bits[i] != 0) res = 0;
   return res;
 }
+
+void mul_by_ten_bd(s21_bd* bd) {
+  bitwise_add_bd(shift_left_bd(*bd, 3), shift_left_bd(*bd, 1), bd);
+}
