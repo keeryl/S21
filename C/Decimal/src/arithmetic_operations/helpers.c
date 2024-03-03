@@ -131,3 +131,10 @@ int is_zero_bd(s21_bd bd) {
     if (bd.bits[i] != 0) res = 0;
   return res;
 }
+
+int is_zero_decimal(s21_decimal dec) {
+  int res = 1;
+  for (int i = 0; i < 3; i++)
+    if (dec.bits[i] != 0) res = 0;
+  return res;
+}
