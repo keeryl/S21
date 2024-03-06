@@ -182,5 +182,19 @@ void scale_down_bd(s21_bd* bd) {
   }
 }
 
-
+int handle_result(s21_bd* result_bd, s21_decimal* result) {
+  int status_code = OK;
+  if (is_overflow_in_decimal(result_bd)) {
+    scale_down_bd_if_overflow(result_bd);
+  }
+  if (is_overflow_in_decimal(result_bd)) {
+    if (get_sign_bd(*result_bd))
+      status_code = SMALL;
+    else
+      status_code = LARGE;
+  } else {
+    convert_bd_to_decimal(result_bd, result);
+  }
+  return status_code;
+}
 
