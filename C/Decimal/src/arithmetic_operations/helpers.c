@@ -161,3 +161,26 @@ void scale_down_bd_if_overflow(s21_bd* bd) {
     set_sign_bd(bd, sign);
   }
 }
+
+void scale_down_bd(s21_bd* bd) {
+  if (!is_zero_bd(*bd)) {
+    int sign = get_sign_bd(*bd);
+    int scale = get_scale_bd(*bd);
+    s21_bd temp_bd = *bd;
+    s21_bd ten_bd = init_bd();
+    ten_bd.bits[0] = 10;
+    s21_bd remainder = bitwise_div_bd(temp_bd, ten_bd, &temp_bd);
+    while (scale && is_zero_bd(remainder)) {
+      if (is_zero_bd(remainder)) {
+        scale -= 1;
+        *bd = temp_bd;
+        set_scale_bd(bd, scale);
+        set_sign_bd(bd, sign);
+      }
+      remainder = bitwise_div_bd(temp_bd, ten_bd, &temp_bd);
+    }
+  }
+}
+
+
+
