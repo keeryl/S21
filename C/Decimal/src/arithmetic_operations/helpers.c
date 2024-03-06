@@ -198,3 +198,16 @@ int handle_result(s21_bd* result_bd, s21_decimal* result) {
   return status_code;
 }
 
+void handle_bank_rounding_bd(s21_bd* res_bd, s21_bd remainder) {
+  int res_sign = get_sign_bd(*res_bd);
+  s21_bd zero_point_five = init_bd();
+  s21_bd one_bd = init_bd();
+  zero_point_five.bits[0] = 5;
+  one_bd.bits[0] = 1;
+  set_scale_bd(&zero_point_five, get_scale_bd(remainder));
+  int compare = compare_bd(remainder, zero_point_five);
+  if (compare == 1 || (!compare && get_bit_bd(*res_bd, 0)))
+    handle_add_bd(*res_bd, one_bd, res_bd, 0, res_sign);
+  else
+    set_sign_bd(res_bd, res_sign);
+}
