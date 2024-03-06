@@ -211,3 +211,10 @@ void handle_bank_rounding_bd(s21_bd* res_bd, s21_bd remainder) {
   else
     set_sign_bd(res_bd, res_sign);
 }
+
+int is_overflow_in_decimal(const s21_bd* res_bd) {
+  int res = 0;
+  for (int i = 3; i < 7; i++)
+    if (res_bd->bits[i] != 0) res = 1;
+  return res;
+}
