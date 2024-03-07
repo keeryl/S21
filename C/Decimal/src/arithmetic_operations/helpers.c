@@ -218,3 +218,8 @@ int is_overflow_in_decimal(const s21_bd* res_bd) {
     if (res_bd->bits[i] != 0) res = 1;
   return res;
 }
+
+void convert_bd_to_decimal(s21_bd* result_bd, s21_decimal* result) {
+  for (int i = 0; i < 3; i++) result->bits[i] = result_bd->bits[i];
+  result->bits[3] = result_bd->bits[7];
+}
