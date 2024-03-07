@@ -32,3 +32,20 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   }
   return status_code;
 }
+
+s21_bd bitwise_div_bd(s21_bd bd_1, s21_bd bd_2, s21_bd *res) {
+  *res = init_bd();
+  s21_bd remainder = bd_1;
+  while (compare_bd(remainder, bd_2) != 2) {
+    s21_bd temp_divisor = bd_2;
+    s21_bd temp_res = init_bd();
+    temp_res.bits[0] = 1u;
+    while (compare_bd(remainder, shift_left_bd(temp_divisor, 1)) == 1) {
+      temp_divisor = shift_left_bd(temp_divisor, 1);
+      temp_res = shift_left_bd(temp_res, 1);
+    }
+    bitwise_sub_bd(remainder, temp_divisor, &remainder);
+    bitwise_add_bd(*res, temp_res, res);
+  }
+  return remainder;
+}
