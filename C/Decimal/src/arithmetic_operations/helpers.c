@@ -223,3 +223,15 @@ void convert_bd_to_decimal(s21_bd* result_bd, s21_decimal* result) {
   for (int i = 0; i < 3; i++) result->bits[i] = result_bd->bits[i];
   result->bits[3] = result_bd->bits[7];
 }
+
+int count_digits_bd(s21_bd bd) {
+  int digits = 0;
+  s21_bd ten_bd = init_bd();
+  ten_bd.bits[0] = 10;
+  s21_bd temp_bd = bd;
+  while (!is_zero_bd(temp_bd)) {
+    bitwise_div_bd(temp_bd, ten_bd, &temp_bd);
+    digits += 1;
+  }
+  return digits;
+}
