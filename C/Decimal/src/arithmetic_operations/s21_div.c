@@ -49,3 +49,34 @@ s21_bd bitwise_div_bd(s21_bd bd_1, s21_bd bd_2, s21_bd *res) {
   }
   return remainder;
 }
+
+void handle_div_bd(s21_bd bd_1, s21_bd bd_2, s21_bd *res, int sign) {
+  *res = init_bd();
+  int bd_1_sc = get_scale_bd(bd_1);
+  int bd_2_sc = get_scale_bd(bd_2);
+  int scale = bd_1_sc - bd_2_sc;
+  if (scale < 0) scale = 0;
+  s21_bd remainder = bitwise_div_bd(bd_1, bd_2, res);
+  set_scale_bd(res, scale);
+  int digits_before_point = count_digits_bd(*res) - scale;
+  int digits = digits_before_point + scale;
+  if (digits)
+    digits -= scale;
+  else
+    digits = 1;
+  int fraction = 0;
+  while (!is_zero_bd(remainder) && scale < 29 - digits) {
+    scale += 1;
+    fraction = 1;
+    s21_bd temp = init_bd();
+    mul_by_ten_bd(&remainder);
+    mul_by_ten_bd(res);
+    remainder = bitwise_div_bd(remainder, bd_2, &temp);
+    if (scale == 28 && !digits_before_point)
+      handle_bank_rounding_bd(&temp, temp);
+    bitwise_add_bd(*res, temp, res);
+  }
+  set_scale_bd(res, scale);
+  set_sign_bd(res, sign);
+  if (fraction > 0) scale_down_bd(res);
+}
