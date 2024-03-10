@@ -36,3 +36,16 @@ int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   }
   return status_code;
 }
+
+void bitwise_sub_bd(s21_bd bd_1, s21_bd bd_2, s21_bd *res) {
+  *res = init_bd();
+  int memory = 0;
+  for (int i = 0; i < 224; i++) {
+    int bit_to_set = (get_bit_bd(bd_1, i) - abs(memory)) - get_bit_bd(bd_2, i);
+    if (bit_to_set < 0)
+      memory = 1;
+    else
+      memory = 0;
+    set_bit_bd(res, i, abs(bit_to_set));
+  }
+}
