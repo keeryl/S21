@@ -49,3 +49,9 @@ void bitwise_sub_bd(s21_bd bd_1, s21_bd bd_2, s21_bd *res) {
     set_bit_bd(res, i, abs(bit_to_set));
   }
 }
+
+void handle_sub_bd(s21_bd bd_1, s21_bd bd_2, s21_bd *res, int sc, int sign) {
+  bitwise_sub_bd(bd_1, bd_2, res);
+  set_scale_bd(res, sc);
+  set_sign_bd(res, sign);
+}
