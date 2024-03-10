@@ -20,3 +20,15 @@ int s21_mul(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
   }
   return status_code;
 }
+
+void bitwise_mul_bd(s21_bd bd_1, s21_bd bd_2, s21_bd *res) {
+  *res = init_bd();
+  int higest_multiplier_bit_idx = 0;
+  for (int i = 223; i >= 0; i--) {
+    if (get_bit_bd(bd_2, i)) higest_multiplier_bit_idx = 1;
+    if (higest_multiplier_bit_idx) {
+      if (get_bit_bd(bd_2, i)) bitwise_add_bd(bd_1, *res, res);
+      if (i > 0) *res = shift_left_bd(*res, 1);
+    }
+  }
+}
