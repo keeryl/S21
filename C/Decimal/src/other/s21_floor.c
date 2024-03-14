@@ -7,14 +7,14 @@ int s21_floor(s21_decimal value, s21_decimal *result) {
   else {
     s21_decimal fraction = init_decimal();
     s21_truncate(value, result);
-    int sign = s21_get_sign(value);
+    int sign = get_sign(value);
     s21_sub(value, *result, &fraction);
     if (!is_zero_decimal(fraction) && sign) {
       s21_decimal one = init_decimal();
       one.bits[0] = 1;
       s21_sub(*result, one, result);
     }
-    s21_set_sign(result, sign);
+    set_sign(result, sign);
   }
   return status_code;
 }

@@ -16,15 +16,15 @@ START_TEST(addn) {
     s21_decimal s21_res = init_decimal();
     dec_1.bits[0] = abs(i);
     dec_2.bits[0] = abs(j);
-    if (i < 0) s21_set_sign(&dec_1, 1);
-    if (j < 0) s21_set_sign(&dec_2, 1);
+    if (i < 0) set_sign(&dec_1, 1);
+    if (j < 0) set_sign(&dec_2, 1);
     int standard_res = i + j;
     int s21_res_status = s21_add(dec_1, dec_2, &s21_res);
     int sign = 0;
     if (standard_res < 0) sign = 1;
     ck_assert_int_eq(s21_res.bits[0], abs(standard_res));
     ck_assert_int_eq(s21_res_status, 0);
-    ck_assert_int_eq(s21_get_sign(s21_res), sign);
+    ck_assert_int_eq(get_sign(s21_res), sign);
     j += 2;
   }
   j = 200;
@@ -34,15 +34,15 @@ START_TEST(addn) {
     s21_decimal s21_res = init_decimal();
     dec_1.bits[0] = abs(i);
     dec_2.bits[0] = abs(j);
-    if (i < 0) s21_set_sign(&dec_1, 1);
-    if (j < 0) s21_set_sign(&dec_2, 1);
+    if (i < 0) set_sign(&dec_1, 1);
+    if (j < 0) set_sign(&dec_2, 1);
     int standard_res = i + j;
     int s21_res_status = s21_add(dec_1, dec_2, &s21_res);
     int sign = 0;
     if (standard_res < 0) sign = 1;
     ck_assert_int_eq(s21_res.bits[0], abs(standard_res));
     ck_assert_int_eq(s21_res_status, 0);
-    ck_assert_int_eq(s21_get_sign(s21_res), sign);
+    ck_assert_int_eq(get_sign(s21_res), sign);
     j -= 2;
   }
   s21_decimal decimal_res = init_decimal();
@@ -264,15 +264,15 @@ START_TEST(subn) {
     s21_decimal s21_res = init_decimal();
     dec_1.bits[0] = abs(i);
     dec_2.bits[0] = abs(j);
-    if (i < 0) s21_set_sign(&dec_1, 1);
-    if (j < 0) s21_set_sign(&dec_2, 1);
+    if (i < 0) set_sign(&dec_1, 1);
+    if (j < 0) set_sign(&dec_2, 1);
     int standard_res = i - j;
     int s21_res_status = s21_sub(dec_1, dec_2, &s21_res);
     int sign = 0;
     if (standard_res < 0) sign = 1;
     ck_assert_int_eq(s21_res.bits[0], abs(standard_res));
     ck_assert_int_eq(s21_res_status, 0);
-    ck_assert_int_eq(s21_get_sign(s21_res), sign);
+    ck_assert_int_eq(get_sign(s21_res), sign);
     j += 2;
   }
   j = 200;
@@ -283,15 +283,15 @@ START_TEST(subn) {
     s21_decimal s21_res = init_decimal();
     dec_1.bits[0] = abs(i);
     dec_2.bits[0] = abs(j);
-    if (i < 0) s21_set_sign(&dec_1, 1);
-    if (j < 0) s21_set_sign(&dec_2, 1);
+    if (i < 0) set_sign(&dec_1, 1);
+    if (j < 0) set_sign(&dec_2, 1);
     int standard_res = i - j;
     int s21_res_status = s21_sub(dec_1, dec_2, &s21_res);
     int sign = 0;
     if (standard_res < 0) sign = 1;
     ck_assert_int_eq(s21_res.bits[0], abs(standard_res));
     ck_assert_int_eq(s21_res_status, 0);
-    ck_assert_int_eq(s21_get_sign(s21_res), sign);
+    ck_assert_int_eq(get_sign(s21_res), sign);
     j -= 2;
   }
 
@@ -411,15 +411,15 @@ START_TEST(muln) {
     s21_decimal s21_res = init_decimal();
     dec_1.bits[0] = abs(i);
     dec_2.bits[0] = abs(j);
-    if (i < 0) s21_set_sign(&dec_1, 1);
-    if (j < 0) s21_set_sign(&dec_2, 1);
+    if (i < 0) set_sign(&dec_1, 1);
+    if (j < 0) set_sign(&dec_2, 1);
     int standard_res = i * j;
     int s21_res_status = s21_mul(dec_1, dec_2, &s21_res);
     int sign = 0;
     if (standard_res < 0) sign = 1;
     ck_assert_int_eq(s21_res.bits[0], abs(standard_res));
     ck_assert_int_eq(s21_res_status, 0);
-    ck_assert_int_eq(s21_get_sign(s21_res), sign);
+    ck_assert_int_eq(get_sign(s21_res), sign);
     j += 2;
   }
   j = 200;
@@ -429,15 +429,15 @@ START_TEST(muln) {
     s21_decimal s21_res = init_decimal();
     dec_1.bits[0] = abs(i);
     dec_2.bits[0] = abs(j);
-    if (i < 0) s21_set_sign(&dec_1, 1);
-    if (j < 0) s21_set_sign(&dec_2, 1);
+    if (i < 0) set_sign(&dec_1, 1);
+    if (j < 0) set_sign(&dec_2, 1);
     int standard_res = i * j;
     int s21_res_status = s21_mul(dec_1, dec_2, &s21_res);
     int sign = 0;
     if (standard_res < 0) sign = 1;
     ck_assert_int_eq(s21_res.bits[0], abs(standard_res));
     ck_assert_int_eq(s21_res_status, 0);
-    ck_assert_int_eq(s21_get_sign(s21_res), sign);
+    ck_assert_int_eq(get_sign(s21_res), sign);
     j -= 2;
   }
 

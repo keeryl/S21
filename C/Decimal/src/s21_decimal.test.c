@@ -1,17 +1,21 @@
 #include "arithmetic_operations/tests.h"
+#include "other/tests.h"
 
 int main() {
   Suite *s;
   SRunner *sr;
   TCase *tc;
-  printf("\n\n//////////// ARITHMETIC TESTS ////////////\n\n");
-  s = suite_create("ARITHMETIC TESTS");
+  printf("\n\n//////////// DECIMAL TESTS ////////////\n\n");
+  s = suite_create("DECIMAL TESTS");
   tc = tcase_create("Test");
 
-  tcase_add_test(tc, add);
-  tcase_add_test(tc, sub);
-  tcase_add_test(tc, mul);
-  tcase_add_test(tc, division);
+  tcase_add_test(tc, addn);  // addition
+  tcase_add_test(tc, subn);  // substraction
+  tcase_add_test(tc, muln);  // multiplication
+  tcase_add_test(tc, divn);  // division
+  tcase_add_test(tc, trun);  // truncate
+  tcase_add_test(tc, flr);   // floor
+  tcase_add_test(tc, rnd);   // round
 
   suite_add_tcase(s, tc);
   sr = srunner_create(s);

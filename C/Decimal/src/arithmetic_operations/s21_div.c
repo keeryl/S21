@@ -12,7 +12,7 @@ int s21_div(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
     int scale = get_scale(value_1) - get_scale(value_2);
     int sign = 0;
     if (get_sign(value_1) ^ get_sign(value_2)) sign = 1;
-    s21_set_sign(result, sign);
+    set_sign(result, sign);
     if (scale > 0)
       set_scale(result, scale);
     else

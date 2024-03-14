@@ -65,7 +65,7 @@ void set_scale(s21_decimal* decimal, int val) {
   int sign = get_sign(*decimal);
   decimal->bits[3] = 0;
   decimal->bits[3] |= (val << 16);
-  s21_set_sign(decimal, sign);
+  set_sign(decimal, sign);
 }
 
 int get_scale_bd(s21_bd bd) { return (bd.bits[7] & SCALE) >> 16; }
@@ -78,7 +78,14 @@ void set_sign_bd(s21_bd* bd, int val) {
   bd->bits[7] |= ((unsigned)val << 31);
 }
 
+void set_sign(s21_decimal* dec, int val) {
+  if (val == 1) dec->bits[3] |= (1u << 31);
+  if (val == 0) dec->bits[3] &= ~(1u << 31);
+}
+
 int get_sign_bd(s21_bd bd) { return (bd.bits[7] & SIGN) >> 31; }
+
+int get_sign(s21_decimal dec) { return (dec.bits[3] & SIGN) >> 31; }
 
 s21_bd shift_left_bd(s21_bd bd, int shift_val) {
   s21_bd res = bd;
