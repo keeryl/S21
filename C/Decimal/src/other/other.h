@@ -5,7 +5,6 @@
 #include <stdlib.h>
 
 #include "../arithmetic_operations/helpers.h"
-#include "../helpers/helpers.h"
 #include "../s21_decimal.h"
 
 #endif
