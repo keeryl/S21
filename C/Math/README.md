@@ -1,0 +1,1 @@
+An implementation of own math library in C.
