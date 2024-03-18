@@ -83,3 +83,25 @@ long double s21_ceil(double x) {
     result += 1;
   return result;
 }
+
+long double s21_cos(double x) {
+  long double result = 0;
+  if (x != x || s21_fabs(x) == S21_INF) {
+    result = S21_NAN;
+  } else if (x == 0) {
+    result = 1;
+  } else if (x < 0) {
+    result = s21_cos(-x);
+  } else if (x > S21_PI * 2) {
+    result = s21_cos(s21_fmod(x, 2 * S21_PI));
+  } else {
+    result = 1;
+    long double mul = -x * x;
+    long double add = 1;
+    for (int i = 1; i < 20; i++) {
+      add = add * mul / (2 * i * (2 * i - 1));
+      result += add;
+    }
+  }
+  return result;
+}
