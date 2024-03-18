@@ -105,3 +105,37 @@ long double s21_cos(double x) {
   }
   return result;
 }
+
+long double s21_exp(double x) {
+  long double res = 0.0;
+  if (x != x)
+    res = S21_NAN;
+  else if (x == 0)
+    res = 1.0;
+  else if (x == -S21_INF)
+    res = +0.0;
+  else if (x == S21_INF)
+    res = S21_INF;
+  else {
+    long double x_int = s21_floor(s21_fabs(x));
+    long double x_dbl = s21_fabs(x) - s21_floor(s21_fabs(x));
+    if (x_int != 0) res = binary_pow(S21_EXP, x_int);
+    if (x_dbl > 0) {
+      long double add_value = 1.0;
+      long double i = 1.0;
+      long double dbl_res = 0.0;
+      do {
+        dbl_res += add_value;
+        add_value *= x_dbl / i;
+        i += 1.0;
+        if (dbl_res > S21_DBL_MAX) {
+          dbl_res = S21_INF;
+          break;
+        }
+      } while (s21_fabs(add_value) > 1e-16);
+      res = (x_int > 0) ? res * dbl_res : dbl_res;
+    }
+    if (x < 0) res = 1.0 / res;
+  }
+  return res;
+}
