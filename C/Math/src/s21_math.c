@@ -66,3 +66,20 @@ long double s21_atan(double x) {
   }
   return result;
 }
+
+long double s21_ceil(double x) {
+  long double result = (long long)x;
+  if (x != x)
+    result = S21_NAN;
+  else if (x == 0.0)
+    result = 0.0;
+  else if (x == S21_INF)
+    result = S21_INF;
+  else if (x == -S21_INF)
+    result = -S21_INF;
+  else if (x <= -S21_FLT_MAX || x >= S21_FLT_MAX)
+    result = x;
+  else if (x > 0. && s21_fabs(x - result) > 0.)
+    result += 1;
+  return result;
+}
