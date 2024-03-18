@@ -25,3 +25,17 @@ long double s21_acos(double x) {
   return res;
 }
 
+long double s21_asin(double x) {
+  long double res = 0.0;
+  if (x == 0)
+    res = 0.0;
+  else if (s21_fabs(x) > 1 || x != x)
+    res = S21_NAN;
+  else if (x == 1.0)
+    res = 1.5707963267948965579989817342720925807952880859375;
+  else if (x == -1.0)
+    res = -1.5707963267948965579989817342720925807952880859375;
+  else
+    res = s21_atan(x / s21_sqrt(1.0 - (x * x)));
+  return res;
+}
