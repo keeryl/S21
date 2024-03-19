@@ -146,3 +146,13 @@ long double s21_fabs(double x) {
   if (res == S21_INF || res == -S21_INF) res = S21_INF;
   return res;
 }
+
+long double s21_floor(double x) {
+  long double result = (long long)x;
+  if ((x == S21_INF || x == -S21_INF) || x != x)
+    return x;
+  else if (x <= -S21_FLT_MAX || x >= S21_FLT_MAX)
+    result = x;
+  if (x < 0. && s21_fabs(x - result) > 0.) result -= 1;
+  return result;
+}
