@@ -139,3 +139,10 @@ long double s21_exp(double x) {
   }
   return res;
 }
+
+long double s21_fabs(double x) {
+  long double res = (long double)x;
+  if (res < 0) res = -res;
+  if (res == S21_INF || res == -S21_INF) res = S21_INF;
+  return res;
+}
