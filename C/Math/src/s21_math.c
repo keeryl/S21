@@ -174,3 +174,25 @@ long double s21_fmod(double x, double y) {
     res = x - y * s21_ceil(div_res);
   return res;
 }
+
+long double s21_log(double x) {
+  long double res = 0.0;
+  if (x == 0)
+    res = -S21_INF;
+  else if (x == 1)
+    res = 0;
+  else if (x < 0 || x != x)
+    res = S21_NAN;
+  else if (x == S21_INF)
+    res = S21_INF;
+  else {
+    double ln = 0;
+    double ln1 = ln + 0.5;
+    while (s21_fabs(ln - ln1) > 1e-12) {
+      ln = ln1;
+      ln1 = ln + 2 * (x - s21_exp(ln)) / (x + s21_exp(ln));
+    }
+    res = ln1;
+  }
+  return res;
+}
