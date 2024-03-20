@@ -196,3 +196,53 @@ long double s21_log(double x) {
   }
   return res;
 }
+
+long double s21_pow(double base, double e) {
+  long double res = 0.0;
+  if (base == 0 && (isInt(e) && isOdd(e) && e < 0.0))
+    res = S21_INF;
+  else if (base == 0 && (isInt(e) && !isOdd(e) && e < 0.0))
+    res = S21_INF;
+  else if (base == 0 && (isInt(e) && isOdd(e) && e > 0.0))
+    res = 0.0;
+  else if (base == 0 && (isInt(e) && !isOdd(e) && e > 0.0))
+    res = +0.0;
+  else if (base == -1 && (e == -S21_INF || e == S21_INF))
+    res = 1.0;
+  else if (base == 1 || e == 0)
+    res = 1.0;
+  else if (base < 0 && isFinite(base) && !isInt(e) && isFinite(e))
+    res = S21_NAN;
+  else if (e == -S21_INF && s21_fabs(base) < 1)
+    res = S21_INF;
+  else if (e == -S21_INF && s21_fabs(base) > 1)
+    res = +0.0;
+  else if (e == S21_INF && s21_fabs(base) < 1)
+    res = +0.0;
+  else if (e == S21_INF && s21_fabs(base) > 1)
+    res = S21_INF;
+  else if (base == -S21_INF && (isInt(e) && isOdd(e) && e < 0.0))
+    res = -0;
+  else if (base == -S21_INF && (isInt(e) && !isOdd(e) && e < 0.0))
+    res = +0;
+  else if (base == -S21_INF && (isInt(e) && isOdd(e) && e > 0.0))
+    res = -S21_INF;
+  else if (base == -S21_INF && (isInt(e) && !isOdd(e) && e > 0.0))
+    res = S21_INF;
+  else if (base == S21_INF && e < 0.0)
+    res = +0.0;
+  else if (base == S21_INF && e > 0.0)
+    res = S21_INF;
+  else if (base != base || e != e)
+    res = S21_NAN;
+  else {
+    long double e_int = s21_floor(s21_fabs(e));
+    long double e_dbl = s21_fabs(e) - s21_floor(s21_fabs(e));
+    if (e_int == 0)
+      res = s21_exp(e_dbl * s21_log(base));
+    else
+      res = simple_pow(base, e_int) * s21_exp(e_dbl * s21_log(base));
+    if (e < 0) res = 1.0 / res;
+  }
+  return res;
+}
