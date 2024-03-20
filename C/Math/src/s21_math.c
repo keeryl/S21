@@ -246,3 +246,22 @@ long double s21_pow(double base, double e) {
   }
   return res;
 }
+
+long double s21_sin(double x) {
+  long double res = 0.0;
+  if (x == 0.0)
+    res = 0.0;
+  else if (x == S21_INF || x == -S21_INF || x != x)
+    res = S21_NAN;
+  else {
+    long double f = 1;
+    long double sin = s21_fmod(x, 2 * S21_PI);
+    long double p = sin;
+    while (s21_fabs(p) > 1e-12) {
+      res += p;
+      p = (-1) * p * (sin * sin) / ((2 * f + 1) * (2 * f));
+      f++;
+    }
+  }
+  return res;
+}
