@@ -287,3 +287,7 @@ long double s21_tan(double x) {
     res = s21_sin(x) / s21_cos(x);
   return res;
 }
+
+int isInt(double x) {
+  return (s21_fabs(x) - s21_floor(s21_fabs(x)) == 0) ? 1 : 0;
+}
