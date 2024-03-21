@@ -296,3 +296,7 @@ int isOdd(double x) {
   long long int_x = s21_fabs(x);
   return (int_x % 2 == 0) ? 0 : 1;
 }
+
+int isFinite(double x) {
+  return (x != -S21_INF && x != S21_INF && x == x) ? 1 : 0;
+}
