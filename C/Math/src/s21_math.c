@@ -308,3 +308,15 @@ long double simple_pow(long double base, unsigned long long e) {
   res = val;
   return res;
 }
+
+long double binary_pow(long double base, unsigned long long e) {
+  long double v = 1.0;
+  while (e != 0) {
+    if ((e & 1) != 0) {
+      v *= base;
+    }
+    base *= base;
+    e >>= 1;
+  }
+  return v;
+}
