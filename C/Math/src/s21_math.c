@@ -291,3 +291,8 @@ long double s21_tan(double x) {
 int isInt(double x) {
   return (s21_fabs(x) - s21_floor(s21_fabs(x)) == 0) ? 1 : 0;
 }
+
+int isOdd(double x) {
+  long long int_x = s21_fabs(x);
+  return (int_x % 2 == 0) ? 0 : 1;
+}
