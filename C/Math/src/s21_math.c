@@ -300,3 +300,11 @@ int isOdd(double x) {
 int isFinite(double x) {
   return (x != -S21_INF && x != S21_INF && x == x) ? 1 : 0;
 }
+
+long double simple_pow(long double base, unsigned long long e) {
+  long double res = 0.0;
+  long double val = base;
+  for (unsigned long long i = 0; i < e - 1; i++) val *= base;
+  res = val;
+  return res;
+}
