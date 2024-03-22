@@ -123,4 +123,29 @@ START_TEST(test_cos) {
 }
 END_TEST
 
+START_TEST(test_exp) {
+  for (double x = -50; x < 300.0; x += 1.6733) {
+    long double exp_res = exp(x);
+    long double s21_exp_res = s21_exp(x);
+    if (exp_res < 1e10)
+      ck_assert_ldouble_eq_tol(exp_res, s21_exp_res, 1e-6);
+    else
+      ck_assert_ldouble_lt(fabsl(exp_res - s21_exp_res) / fabsl(s21_exp_res),
+                           1e-15);
+  }
+
+  ck_assert_ldouble_eq(s21_exp(0), 1);
+  ck_assert_ldouble_eq(s21_exp(1), S21_EXP);
+  ck_assert_ldouble_eq(s21_exp(+INFINITY), +INFINITY);
+  ck_assert_ldouble_eq(s21_exp(-INFINITY), +0);
+  ck_assert_ldouble_nan(s21_exp(NAN));
+
+  ck_assert_ldouble_eq(exp(0), 1);
+  ck_assert_ldouble_eq_tol(exp(1), s21_exp(1), 1e-6);
+  ck_assert_ldouble_eq(exp(+INFINITY), +INFINITY);
+  ck_assert_ldouble_eq(exp(-INFINITY), +0);
+  ck_assert_ldouble_nan(exp(NAN));
+}
+END_TEST
+
 #endif
