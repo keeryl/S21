@@ -49,4 +49,35 @@ START_TEST(test_asin) {
   ck_assert_ldouble_eq(asin(0), +0);
 }
 END_TEST
+
+START_TEST(test_atan) {
+  for (double x = -1100000; x < 1100000; x += 10505.333) {
+    long double atan_res = atan(x);
+    long double s21_atan_res = s21_atan(x);
+    ck_assert_ldouble_eq_tol(atan_res, s21_atan_res, 1e-6);
+  }
+
+  for (double x = -10; x < 10; x += 0.25) {
+    long double atan_res = atan(x);
+    long double s21_atan_res = s21_atan(x);
+    ck_assert_ldouble_eq_tol(atan_res, s21_atan_res, 1e-6);
+  }
+  ck_assert_ldouble_nan(s21_atan(NAN));
+  ck_assert_ldouble_eq_tol(s21_atan(-INFINITY),
+                           (-3.14159265358979323846264338327950288 / 2), 1e-6);
+  ck_assert_ldouble_eq_tol(s21_atan(INFINITY),
+                           (3.14159265358979323846264338327950288 / 2), 1e-6);
+  ck_assert_ldouble_eq(s21_atan(-0), -0);
+  ck_assert_ldouble_eq(s21_atan(+0), +0);
+
+  ck_assert_ldouble_nan(atan(NAN));
+  ck_assert_ldouble_eq(atan(-INFINITY),
+                       (-3.14159265358979323846264338327950288 / 2));
+  ck_assert_ldouble_eq(atan(INFINITY),
+                       (3.14159265358979323846264338327950288 / 2));
+  ck_assert_ldouble_eq(atan(-0), -0);
+  ck_assert_ldouble_eq(atan(+0), +0);
+}
+END_TEST
+
 #endif
