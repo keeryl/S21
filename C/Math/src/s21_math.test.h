@@ -105,4 +105,22 @@ START_TEST(test_ceil) {
 }
 END_TEST
 
+START_TEST(test_cos) {
+  for (double x = -1100000; x < 1100000; x += 10505.333) {
+    long double cos_res = cos(x);
+    long double s21_cos_res = s21_cos(x);
+    ck_assert_ldouble_eq_tol(cos_res, s21_cos_res, 1e-6);
+  }
+  ck_assert_ldouble_nan(s21_cos(NAN));
+  ck_assert_ldouble_nan(s21_cos(-INFINITY));
+  ck_assert_ldouble_nan(s21_cos(INFINITY));
+  ck_assert_ldouble_eq(s21_cos(0), 1);
+
+  ck_assert_ldouble_nan(cos(NAN));
+  ck_assert_ldouble_nan(cos(-INFINITY));
+  ck_assert_ldouble_nan(cos(INFINITY));
+  ck_assert_ldouble_eq(cos(0), 1);
+}
+END_TEST
+
 #endif
