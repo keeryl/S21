@@ -80,4 +80,29 @@ START_TEST(test_atan) {
 }
 END_TEST
 
+START_TEST(test_ceil) {
+  for (double x = -1000.545; x < 1000; x += 100.345) {
+    long double ceil_res = ceil(x);
+    long double s21_ceil_res = s21_ceil(x);
+    ck_assert_ldouble_eq(ceil_res, s21_ceil_res);
+  }
+  ck_assert_ldouble_infinite(s21_ceil(INFINITY));
+  ck_assert_ldouble_infinite(s21_ceil(-INFINITY));
+  ck_assert_ldouble_eq(s21_ceil(-INFINITY), -INFINITY);
+  ck_assert_ldouble_eq(s21_ceil(INFINITY), INFINITY);
+  ck_assert_ldouble_eq(s21_ceil(-0), 0);
+  ck_assert_ldouble_eq(s21_ceil(+0), 0);
+  ck_assert_ldouble_eq(s21_ceil(S21_FLT_MAX + 1000), ceil(S21_FLT_MAX + 1000));
+  ck_assert_ldouble_nan(s21_ceil(NAN));
+
+  ck_assert_ldouble_infinite(ceil(INFINITY));
+  ck_assert_ldouble_infinite(ceil(-INFINITY));
+  ck_assert_ldouble_eq(ceil(-INFINITY), -INFINITY);
+  ck_assert_ldouble_eq(ceil(INFINITY), INFINITY);
+  ck_assert_ldouble_eq(ceil(-0), 0);
+  ck_assert_ldouble_eq(ceil(+0), 0);
+  ck_assert_ldouble_nan(ceil(NAN));
+}
+END_TEST
+
 #endif
