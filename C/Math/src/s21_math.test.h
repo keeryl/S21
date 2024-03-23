@@ -254,4 +254,19 @@ START_TEST(test_log) {
 }
 END_TEST
 
+START_TEST(test_pow) {
+  double x = 1.55;
+  for (double y = -20.7; y < 1000; y += 1.555) {
+    double pow_res = pow(x, y);
+    long double s21_pow_res = s21_pow(x, y);
+    if (pow_res < 1e10)
+      ck_assert_ldouble_eq_tol((long double)pow_res, s21_pow_res, 1e-6);
+    else
+      ck_assert_ldouble_lt(
+          fabsl((long double)pow_res - s21_pow_res) / fabsl(s21_pow_res),
+          1e-15);
+  }
+}
+END_TEST
+
 #endif
