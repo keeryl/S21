@@ -190,4 +190,46 @@ START_TEST(test_floor) {
 }
 END_TEST
 
+START_TEST(test_fmod) {
+  for (double x = -100.50, y = -90.50; x < 100; x += 0.50, y += 0.35) {
+    double fmod_res = fmod(x, y);
+    long double s21_fmod_res = s21_fmod(x, y);
+    ck_assert_ldouble_eq((long double)fmod_res, s21_fmod_res);
+  }
+  ck_assert_ldouble_eq((long double)fmod(-100, -101), s21_fmod(-100, -101));
+  ck_assert_ldouble_eq((long double)fmod(100, 101), s21_fmod(100, 101));
+  ck_assert_ldouble_eq(s21_fmod(10, INFINITY), 10);
+  ck_assert_ldouble_eq(s21_fmod(10, -INFINITY), 10);
+  ck_assert_ldouble_eq(s21_fmod(-0, 2), 0);
+  ck_assert_ldouble_eq(s21_fmod(+0, 2), 0);
+  ck_assert_ldouble_nan(s21_fmod(+0, NAN));
+  ck_assert_ldouble_nan(s21_fmod(-0, NAN));
+  ck_assert_ldouble_nan(s21_fmod(5, NAN));
+  ck_assert_ldouble_nan(s21_fmod(-5, NAN));
+  ck_assert_ldouble_nan(s21_fmod(NAN, -0));
+  ck_assert_ldouble_nan(s21_fmod(NAN, +0));
+  ck_assert_ldouble_nan(s21_fmod(NAN, 5));
+  ck_assert_ldouble_nan(s21_fmod(NAN, -5));
+  ck_assert_ldouble_nan(s21_fmod(101, 0));
+  ck_assert_ldouble_nan(s21_fmod(INFINITY, 101));
+  ck_assert_ldouble_nan(s21_fmod(-INFINITY, 101));
+
+  ck_assert_ldouble_eq(fmod(10, INFINITY), 10);
+  ck_assert_ldouble_eq(fmod(10, -INFINITY), 10);
+  ck_assert_ldouble_eq(fmod(-0, 2), 0);
+  ck_assert_ldouble_eq(fmod(+0, 2), 0);
+  ck_assert_ldouble_nan(fmod(+0, NAN));
+  ck_assert_ldouble_nan(fmod(-0, NAN));
+  ck_assert_ldouble_nan(fmod(5, NAN));
+  ck_assert_ldouble_nan(fmod(-5, NAN));
+  ck_assert_ldouble_nan(fmod(NAN, -0));
+  ck_assert_ldouble_nan(fmod(NAN, +0));
+  ck_assert_ldouble_nan(fmod(NAN, 5));
+  ck_assert_ldouble_nan(fmod(NAN, -5));
+  ck_assert_ldouble_nan(fmod(101, 0));
+  ck_assert_ldouble_nan(fmod(INFINITY, 101));
+  ck_assert_ldouble_nan(fmod(-INFINITY, 101));
+}
+END_TEST
+
 #endif
