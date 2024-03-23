@@ -232,4 +232,26 @@ START_TEST(test_fmod) {
 }
 END_TEST
 
+START_TEST(test_log) {
+  for (double x = 1; x < 100; x += 0.50) {
+    double log_res = log(x);
+    long double s21_log_res = s21_log(x);
+    ck_assert_ldouble_eq_tol((long double)log_res, s21_log_res, 1e-6);
+  }
+  ck_assert_ldouble_eq_tol((long double)log(10.23E+208), s21_log(10.23E+208),
+                           1e-6);
+  ck_assert_ldouble_infinite(s21_log(0));
+  ck_assert_ldouble_infinite(s21_log(INFINITY));
+  ck_assert_ldouble_eq(s21_log(1), 0);
+  ck_assert_ldouble_nan(s21_log(-1));
+  ck_assert_ldouble_nan(s21_log(NAN));
+
+  ck_assert_ldouble_infinite(log(0));
+  ck_assert_ldouble_infinite(log(INFINITY));
+  ck_assert_ldouble_eq(log(1), 0);
+  ck_assert_ldouble_nan(log(-1));
+  ck_assert_ldouble_nan(log(NAN));
+}
+END_TEST
+
 #endif
