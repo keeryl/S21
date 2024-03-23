@@ -148,4 +148,24 @@ START_TEST(test_exp) {
 }
 END_TEST
 
+START_TEST(test_fabs) {
+  for (double x = -1000; x < 1000; x += 100.567) {
+    double fabs_res = fabs(x);
+    long double s21_fabs_res = s21_fabs(x);
+    ck_assert_ldouble_eq((long double)fabs_res, s21_fabs_res);
+  }
+  ck_assert_ldouble_infinite(s21_fabs(INFINITY));
+  ck_assert_ldouble_infinite(s21_fabs(-INFINITY));
+  ck_assert_ldouble_eq(s21_fabs(-0), 0);
+  ck_assert_ldouble_eq(s21_fabs(+0), 0);
+  ck_assert_ldouble_nan(s21_fabs(NAN));
+
+  ck_assert_ldouble_infinite(fabs(INFINITY));
+  ck_assert_ldouble_infinite(fabs(-INFINITY));
+  ck_assert_ldouble_eq(fabs(-0.0), 0);
+  ck_assert_ldouble_eq(fabs(+0.0), 0);
+  ck_assert_ldouble_nan(fabs(NAN));
+}
+END_TEST
+
 #endif
