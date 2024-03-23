@@ -168,4 +168,26 @@ START_TEST(test_fabs) {
 }
 END_TEST
 
+START_TEST(test_floor) {
+  for (double x = -5.055; x < 50; x += 0.05) {
+    double floor_res = floor(x);
+    long double s21_floor_res = s21_floor(x);
+    ck_assert_ldouble_eq((long double)floor_res, s21_floor_res);
+  }
+  ck_assert_ldouble_infinite(s21_floor(INFINITY));
+  ck_assert_ldouble_infinite(s21_floor(-INFINITY));
+  ck_assert_ldouble_eq(s21_floor(-0), 0);
+  ck_assert_ldouble_eq(s21_floor(+0), 0);
+  ck_assert_ldouble_eq(s21_floor(S21_FLT_MAX + 1000),
+                       floor(S21_FLT_MAX + 1000));
+  ck_assert_ldouble_nan(s21_floor(NAN));
+
+  ck_assert_ldouble_infinite(floor(INFINITY));
+  ck_assert_ldouble_infinite(floor(-INFINITY));
+  ck_assert_ldouble_eq(floor(-0), 0);
+  ck_assert_ldouble_eq(floor(+0), 0);
+  ck_assert_ldouble_nan(floor(NAN));
+}
+END_TEST
+
 #endif
