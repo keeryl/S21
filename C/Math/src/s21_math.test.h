@@ -371,4 +371,25 @@ START_TEST(test_sin) {
 }
 END_TEST
 
+START_TEST(test_sqrt) {
+  for (double x = 0; x < 1100000; x += 10505.333) {
+    double sqrt_res = sqrt(x);
+    long double s21_sqrt_res = s21_sqrt(x);
+    ck_assert_ldouble_eq_tol((long double)sqrt_res, s21_sqrt_res, 1e-6);
+  }
+  for (double x = 0; x < 10; x += 0.333) {
+    double sqrt_res = sqrt(x);
+    long double s21_sqrt_res = s21_sqrt(x);
+    ck_assert_ldouble_eq_tol((long double)sqrt_res, s21_sqrt_res, 1e-6);
+  }
+  ck_assert_ldouble_nan(s21_sqrt(-1));
+  ck_assert_ldouble_nan(s21_sqrt(NAN));
+  ck_assert_ldouble_eq(s21_sqrt(-0), -0);
+
+  ck_assert_ldouble_nan(sqrt(-1));
+  ck_assert_ldouble_nan(sqrt(NAN));
+  ck_assert_ldouble_eq(sqrt(-0), -0);
+}
+END_TEST
+
 #endif
