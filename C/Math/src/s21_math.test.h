@@ -346,6 +346,29 @@ START_TEST(test_pow_1) {
 }
 END_TEST
 
+START_TEST(test_sin) {
+  for (double x = -1100000; x < 1100000; x += 10505.333) {
+    double sin_res = sin(x);
+    long double s21_sin_res = s21_sin(x);
+    ck_assert_ldouble_eq_tol((long double)sin_res, s21_sin_res, 1e-6);
+  }
+  for (double x = -10; x < 10; x += 0.333) {
+    double sin_res = sin(x);
+    long double s21_sin_res = s21_sin(x);
+    ck_assert_ldouble_eq_tol((long double)sin_res, s21_sin_res, 1e-6);
+  }
+  ck_assert_ldouble_nan(s21_sin(NAN));
+  ck_assert_ldouble_nan(s21_sin(-INFINITY));
+  ck_assert_ldouble_nan(s21_sin(INFINITY));
+  ck_assert_ldouble_eq(s21_sin(-0), -0);
+  ck_assert_ldouble_eq(s21_sin(+0), +0);
 
+  ck_assert_ldouble_nan(sin(NAN));
+  ck_assert_ldouble_nan(sin(-INFINITY));
+  ck_assert_ldouble_nan(sin(INFINITY));
+  ck_assert_ldouble_eq(sin(-0), -0);
+  ck_assert_ldouble_eq(sin(+0), +0);
+}
+END_TEST
 
 #endif
