@@ -55,3 +55,58 @@ void parse_args(int argc, char **argv, cat_flags *flags) {
     }
   }
 }
+
+void cat(cat_flags flags, const char *filePath) {
+  FILE *file = fopen(filePath, "r");
+  if (file) {
+    char current, next, prev = -1;
+    int string_counter = 0;
+    while ((current = getc(file)) != EOF) {
+      if (flags.s) {
+        next = getc(file);
+        if ((prev == '\n' || prev == -1) && current == '\n' && next == '\n') {
+          ungetc(next, file);
+          continue;
+        }
+        ungetc(next, file);
+      }
+      if (flags.b) {
+        if ((prev == '\n' || prev == -1) && current != '\n')
+          printf("%6d\t", ++string_counter);
+      } else if (flags.n) {
+        if (prev == '\n' || prev == -1) printf("%6d\t", ++string_counter);
+      }
+      if (flags.v) {
+        if ((current >= 0 && current < 32 && current != 9 && current != 10) ||
+            current == 127) {
+          if (current == 127) {
+            printf("^?");
+            continue;
+          } else {
+            printf("^%c", (current + 64));
+            continue;
+          }
+        }
+      }
+      if (flags.e) {
+        // Блок кода для другой версии cat на машине
+
+        // if ((prev == '\n' || prev == -1) && current == '\n' && flags.b)
+        //   printf("\t$");
+        // else if (current == '\n') printf("$");
+
+        if (current == '\n') printf("$");
+      }
+      if (flags.t) {
+        if (current == '\t') {
+          printf("^I");
+          continue;
+        }
+      }
+      printf("%c", current);
+      prev = current;
+    }
+  } else {
+    fprintf(stderr, "s21_cat: %s: No such file or directory\n", filePath);
+  }
+}
