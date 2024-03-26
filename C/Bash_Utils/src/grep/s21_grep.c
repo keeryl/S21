@@ -69,3 +69,52 @@ void parse_args(int argc, char **argv, grep_flags *flags, char **patterns,
     }
   }
 }
+
+void process_args(int argc, char **argv, grep_flags flags, char **patterns,
+                  int *patterns_count, char **search_files,
+                  int *search_files_count, char **pattern_files,
+                  int pattern_files_count, int *print_all) {
+  if (!flags.e && !flags.f) {
+    char *pattern = malloc(strlen(argv[optind]) + 1);
+    strcpy(pattern, argv[optind]);
+    patterns[*patterns_count] = pattern;
+    *patterns_count += 1;
+    optind += 1;
+  }
+  for (int i = optind; i < argc; i++) {
+    search_files[*search_files_count] = argv[i];
+    *search_files_count += 1;
+  }
+
+  if (flags.f) {
+    for (int i = 0; i < pattern_files_count; i++) {
+      if (*print_all == 1) break;
+      FILE *file = fopen(pattern_files[i], "r");
+      if (!file) {
+        fprintf(stderr, "grep: %s: No such file or directory\n",
+                pattern_files[i]);
+        exit(1);
+      } else {
+        size_t size = 2048;
+        while (!feof(file)) {
+          char *line = NULL;
+          getline(&line, &size, file);
+          if (line[0] == 0 || line[0] == EOF) {
+            free(line);
+            break;
+          }
+          if (line[0] == '\n') {
+            *print_all = 1;
+            free(line);
+            break;
+          }
+          if (line[strlen(line) - 1] == EOF) line[strlen(line) - 1] = '\0';
+          if (line[strlen(line) - 1] == '\n') line[strlen(line) - 1] = '\0';
+          patterns[*patterns_count] = line;
+          *patterns_count += 1;
+        }
+        fclose(file);
+      }
+    }
+  }
+}
