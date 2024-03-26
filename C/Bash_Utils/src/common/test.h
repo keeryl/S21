@@ -49,4 +49,17 @@ void test(const char *orig_cmd, const char *test_cmd, const char **test_cases,
   printf("SUCCESS: %d\n\n", success);
 }
 
+void leak_test(const char *test_cmd, const char **test_cases,
+               int test_cases_cnt) {
+  printf("Testing %s for leaks...\n\n", test_cmd);
+  for (int i = 0; i < test_cases_cnt; i++) {
+    printf("Testing case: %s\n\n", test_cases[i]);
+    char testing_command[1024];
+    sprintf(testing_command, "leaks -list -atExit -- ./%s %s", test_cmd,
+            test_cases[i]);
+    FILE *testing_output = popen(testing_command, "w");
+    pclose(testing_output);
+  }
+}
+
 #endif
