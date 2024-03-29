@@ -191,3 +191,11 @@ int pattern_search(char *line, grep_flags flags, char **patterns,
 
   return isMatch;
 }
+
+void print_line(grep_flags flags, int line_counter, const char *line) {
+  int line_len = strlen(line);
+  if (flags.n) printf("%d:", line_counter);
+  printf("%s", line);
+  if (line_len > 0 && line[line_len - 1] != '\n') printf("%c", '\n');
+  if (line_len == 0 && line[line_len] != '\n') printf("%c", '\n');
+}
