@@ -118,3 +118,10 @@ void process_args(int argc, char **argv, grep_flags flags, char **patterns,
     }
   }
 }
+
+void process_flag_e(char **patterns, int *patterns_count) {
+  char *pattern = malloc(strlen(optarg) + 1);
+  strcpy(pattern, optarg);
+  patterns[*patterns_count] = pattern;
+  *patterns_count += 1;
+}
