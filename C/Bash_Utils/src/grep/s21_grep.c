@@ -125,3 +125,8 @@ void process_flag_e(char **patterns, int *patterns_count) {
   patterns[*patterns_count] = pattern;
   *patterns_count += 1;
 }
+
+void process_flag_f(char **patterns_files, int *patterns_files_count) {
+  patterns_files[*patterns_files_count] = optarg;
+  *patterns_files_count += 1;
+}
