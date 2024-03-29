@@ -138,3 +138,56 @@ void count_matched_lines(grep_flags flags, int *matches, int isMatch) {
     if (isMatch == 1) *matches += 1;
   }
 }
+
+int pattern_search(char *line, grep_flags flags, char **patterns,
+                   int patterns_count, int search_files_count,
+                   const char *filename, int line_counter) {
+  int isMatch = 0;
+  for (int i = 0; i < patterns_count; i++) {
+    int search_res = -1;
+    regex_t regexp = {0};
+    regmatch_t pmatch = {0};
+    int reg_comp_error = 0;
+    if (flags.i) {
+      reg_comp_error = regcomp(&regexp, patterns[i], REG_EXTENDED | REG_ICASE);
+    } else {
+      reg_comp_error = regcomp(&regexp, patterns[i], REG_EXTENDED);
+    }
+    if (reg_comp_error) {
+      fprintf(stderr, "grep: Failed to compile regexp %s\n", patterns[i]);
+      exit(1);
+    }
+    search_res = regexec(&regexp, line, 1, &pmatch, 0);
+    if (flags.o && !flags.v) {
+      if (search_res == 0) {
+        char matches_string[1024] = {'\0'};
+        strncat(matches_string, line + pmatch.rm_so,
+                pmatch.rm_eo - pmatch.rm_so);
+        output_line(flags, isMatch, filename, line_counter, search_files_count,
+                    matches_string);
+        line = line + pmatch.rm_eo;
+        isMatch = 1;
+        while (regexec(&regexp, line, 1, &pmatch, 0) == 0) {
+          line = line + pmatch.rm_eo;
+          output_line(flags, isMatch, filename, line_counter,
+                      search_files_count, matches_string);
+        }
+      }
+    } else {
+      if (search_res == 0) {
+        isMatch = 1;
+        output_line(flags, isMatch, filename, line_counter, search_files_count,
+                    line);
+        regfree(&regexp);
+        break;
+      }
+    }
+    regfree(&regexp);
+  }
+  if (flags.v) {
+    output_line(flags, isMatch, filename, line_counter, search_files_count,
+                line);
+  }
+
+  return isMatch;
+}
