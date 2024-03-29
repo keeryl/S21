@@ -130,3 +130,11 @@ void process_flag_f(char **patterns_files, int *patterns_files_count) {
   patterns_files[*patterns_files_count] = optarg;
   *patterns_files_count += 1;
 }
+
+void count_matched_lines(grep_flags flags, int *matches, int isMatch) {
+  if (flags.v) {
+    if (isMatch == 0) *matches += 1;
+  } else {
+    if (isMatch == 1) *matches += 1;
+  }
+}
