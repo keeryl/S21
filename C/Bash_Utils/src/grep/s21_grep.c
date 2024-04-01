@@ -237,3 +237,8 @@ void handle_cl_flags(grep_flags flags, int matches, const char *filename,
     }
   }
 }
+
+void handle_filename_output(grep_flags flags, int search_files_count,
+                            const char *filename) {
+  if (search_files_count > 1 && !flags.h) printf("%s:", filename);
+}
