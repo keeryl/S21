@@ -199,3 +199,26 @@ void print_line(grep_flags flags, int line_counter, const char *line) {
   if (line_len > 0 && line[line_len - 1] != '\n') printf("%c", '\n');
   if (line_len == 0 && line[line_len] != '\n') printf("%c", '\n');
 }
+
+void output_line(grep_flags flags, int isMatch, const char *file,
+                 int line_counter, int search_files_count, const char *line) {
+  if (!flags.c && !flags.l) {
+    if (flags.v) {
+      if (isMatch == 0) {
+        handle_filename_output(flags, search_files_count, file);
+        print_line(flags, line_counter, line);
+      }
+    } else if (flags.o) {
+      if (isMatch == 0) {
+        handle_filename_output(flags, search_files_count, file);
+        if (flags.n) printf("%d:", line_counter);
+      }
+      printf("%s\n", line);
+    } else {
+      if (isMatch == 1) {
+        handle_filename_output(flags, search_files_count, file);
+        print_line(flags, line_counter, line);
+      }
+    }
+  }
+}
