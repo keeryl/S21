@@ -222,3 +222,18 @@ void output_line(grep_flags flags, int isMatch, const char *file,
     }
   }
 }
+
+void handle_cl_flags(grep_flags flags, int matches, const char *filename,
+                     int search_files_count, int isMatch) {
+  if (flags.c || flags.l) {
+    if (flags.c) {
+      handle_filename_output(flags, search_files_count, filename);
+      printf("%d\n", matches);
+    }
+    if (flags.l) {
+      if (isMatch == 1) {
+        printf("%s\n", filename);
+      }
+    }
+  }
+}
