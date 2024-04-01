@@ -242,3 +242,44 @@ void handle_filename_output(grep_flags flags, int search_files_count,
                             const char *filename) {
   if (search_files_count > 1 && !flags.h) printf("%s:", filename);
 }
+
+void grep(grep_flags flags, char **patterns, int patterns_count,
+          char **search_files, int search_files_count, int print_all) {
+  for (int i = 0; i < search_files_count; i++) {
+    FILE *file = fopen(search_files[i], "r");
+    if (!file) {
+      if (!flags.s)
+        fprintf(stderr, "grep: %s: No such file or directory\n",
+                search_files[i]);
+    } else {
+      size_t size = 0;
+      int matches = 0;
+      int line_counter = 0;
+      int isMatch = -1;
+      while (!feof(file)) {
+        char *line = NULL;
+        isMatch = 0;
+        getline(&line, &size, file);
+        line_counter += 1;
+        if (print_all) {
+          isMatch = 1;
+          output_line(flags, isMatch, search_files[i], line_counter,
+                      search_files_count, line);
+          count_matched_lines(flags, &matches, isMatch);
+        } else {
+          if (line && line[0] != 0) {
+            isMatch = pattern_search(line, flags, patterns, patterns_count,
+                                     search_files_count, search_files[i],
+                                     line_counter);
+            count_matched_lines(flags, &matches, isMatch);
+          }
+        }
+        free(line);
+        if (flags.l && isMatch) break;
+      }
+      handle_cl_flags(flags, matches, search_files[i], search_files_count,
+                      isMatch);
+      fclose(file);
+    }
+  }
+}
