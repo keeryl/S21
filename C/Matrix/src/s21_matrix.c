@@ -14,3 +14,13 @@ int s21_create_matrix(int rows, int columns, matrix_t *result) {
   }
   return status_code;
 }
+
+void s21_remove_matrix(matrix_t *A) {
+  if (A && A->matrix) {
+    for (int i = 0; i < A->rows; i++) free(A->matrix[i]);
+    free(A->matrix);
+    A->matrix = NULL;
+    A->rows = 0;
+    A->columns = 0;
+  }
+}
