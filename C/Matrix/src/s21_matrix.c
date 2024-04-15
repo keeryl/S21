@@ -24,3 +24,19 @@ void s21_remove_matrix(matrix_t *A) {
     A->columns = 0;
   }
 }
+
+int s21_eq_matrix(const matrix_t *A, const matrix_t *B) {
+  int status_code = SUCCESS;
+  if (is_incorrect_mat(A) || is_incorrect_mat(B))
+    status_code = FAILURE;
+  else if (is_diff_size(A, B))
+    status_code = FAILURE;
+  else if (is_inf_or_nan(A) || is_inf_or_nan(B))
+    status_code = FAILURE;
+  else {
+    for (int i = 0; i < A->rows && status_code; i++)
+      for (int j = 0; j < A->columns && status_code; j++)
+        status_code = is_equal(A, B, i, j);
+  }
+  return status_code;
+}
