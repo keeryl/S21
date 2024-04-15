@@ -57,3 +57,20 @@ int s21_sum_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
   }
   return status_code;
 }
+
+int s21_sub_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
+  int status_code = OK;
+  if (is_incorrect_mat(A) || is_incorrect_mat(B) || !result)
+    status_code = INCORRECT;
+  else if (is_diff_size(A, B))
+    status_code = CALC_ERR;
+  else if (is_inf_or_nan(A) || is_inf_or_nan(B))
+    status_code = CALC_ERR;
+  else {
+    s21_create_matrix(A->rows, A->columns, result);
+    for (int i = 0; i < A->rows; i++)
+      for (int j = 0; j < A->columns; j++)
+        result->matrix[i][j] = A->matrix[i][j] - B->matrix[i][j];
+  }
+  return status_code;
+}
