@@ -91,3 +91,18 @@ int s21_mult_number(matrix_t *A, double number, matrix_t *result) {
   }
   return status_code;
 }
+
+int s21_mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
+  int status_code = OK;
+  if (is_incorrect_mat(A) || is_incorrect_mat(B) || !result)
+    status_code = INCORRECT;
+  else if (A->rows != B->columns)
+    status_code = CALC_ERR;
+  else if (is_inf_or_nan(A) || is_inf_or_nan(B))
+    status_code = CALC_ERR;
+  else {
+    s21_create_matrix(A->rows, B->columns, result);
+    mult_matrix(A, B, result);
+  }
+  return status_code;
+}
