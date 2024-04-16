@@ -141,3 +141,29 @@ int s21_calc_complements(matrix_t *A, matrix_t *result) {
   }
   return status_code;
 }
+
+int s21_determinant(matrix_t *A, double *result) {
+  int status_code = OK;
+  if (is_incorrect_mat(A) || !result)
+    status_code = INCORRECT;
+  else if (A->rows != A->columns || is_inf_or_nan(A))
+    status_code = CALC_ERR;
+  else if (A->rows == 1)
+    *result = A->matrix[0][0];
+  else {
+    matrix_t temp = {0};
+    double det = 0;
+    int sign = 1;
+    for (int i = 0; i < A->rows; i++) {
+      double res = 0;
+      s21_create_matrix(A->rows - 1, A->columns - 1, &temp);
+      get_minor(A, &temp, i, 0);
+      s21_determinant(&temp, &res);
+      det += sign * A->matrix[i][0] * res;
+      sign *= -1;
+      s21_remove_matrix(&temp);
+    }
+    *result = det;
+  }
+  return status_code;
+}
