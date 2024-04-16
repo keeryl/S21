@@ -119,3 +119,25 @@ int s21_transpose(matrix_t *A, matrix_t *result) {
   }
   return status_code;
 }
+
+int s21_calc_complements(matrix_t *A, matrix_t *result) {
+  int status_code = OK;
+  if (is_incorrect_mat(A) || !result)
+    status_code = INCORRECT;
+  else if (A->rows != A->columns || is_inf_or_nan(A))
+    status_code = CALC_ERR;
+  else {
+    s21_create_matrix(A->rows, A->columns, result);
+    for (int i = 0; i < A->rows; i++)
+      for (int j = 0; j < A->columns; j++) {
+        matrix_t temp = {0};
+        s21_create_matrix(A->rows - 1, A->columns - 1, &temp);
+        get_minor(A, &temp, i, j);
+        double det_temp = 0;
+        s21_determinant(&temp, &det_temp);
+        result->matrix[i][j] = pow(-1, i + j) * det_temp;
+        s21_remove_matrix(&temp);
+      }
+  }
+  return status_code;
+}
