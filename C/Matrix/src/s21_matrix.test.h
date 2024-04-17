@@ -15,5 +15,11 @@ START_TEST(create_matrix) {
 }
 END_TEST
 
+START_TEST(create_matrix_1) {
+  matrix_t matrix = {0};
+  int status_code = s21_create_matrix(0, 3, &matrix);
+  ck_assert_int_eq(status_code, INCORRECT);
+}
+END_TEST
 
 #endif
