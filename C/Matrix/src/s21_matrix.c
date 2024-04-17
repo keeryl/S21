@@ -167,3 +167,25 @@ int s21_determinant(matrix_t *A, double *result) {
   }
   return status_code;
 }
+
+int s21_inverse_matrix(matrix_t *A, matrix_t *result) {
+  if (!result) return INCORRECT;
+  double determinant = 0;
+  int status_code = s21_determinant(A, &determinant);
+  if (status_code == OK && determinant == 0)
+    status_code = CALC_ERR;
+  else if (status_code == OK) {
+    matrix_t calc_complements = {0};
+    matrix_t transposed_mat = {0};
+    s21_calc_complements(A, &calc_complements);
+    s21_transpose(&calc_complements, &transposed_mat);
+    s21_create_matrix(A->rows, A->columns, result);
+    for (int i = 0; i < A->rows; i++)
+      for (int j = 0; j < A->columns; j++) {
+        result->matrix[i][j] = transposed_mat.matrix[i][j] * -1;
+      }
+    s21_remove_matrix(&calc_complements);
+    s21_remove_matrix(&transposed_mat);
+  }
+  return status_code;
+}
