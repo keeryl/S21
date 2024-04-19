@@ -35,4 +35,48 @@ START_TEST(create_matrix_3) {
 }
 END_TEST
 
+START_TEST(equal_matrix) {
+  matrix_t A = {0};
+  s21_create_matrix(2, 2, &A);
+  A.matrix[0][0] = 1;
+  A.matrix[0][1] = 1;
+  A.matrix[1][0] = 1;
+  A.matrix[1][1] = 1;
+  matrix_t B = {0};
+  s21_create_matrix(2, 2, &B);
+  B.matrix[0][0] = 1;
+  B.matrix[0][1] = 1;
+  B.matrix[1][0] = 1;
+  B.matrix[1][1] = 1;
+  int status_code = s21_eq_matrix(&A, &B);
+  ck_assert_int_eq(status_code, SUCCESS);
+  status_code = s21_eq_matrix(&A, NULL);
+  ck_assert_int_eq(status_code, FAILURE);
+  status_code = s21_eq_matrix(NULL, &B);
+  ck_assert_int_eq(status_code, FAILURE);
+  B.matrix[1][1] = NAN;
+  status_code = s21_eq_matrix(&A, &B);
+  ck_assert_int_eq(status_code, FAILURE);
+  B.matrix[1][1] = INFINITY;
+  status_code = s21_eq_matrix(&A, &B);
+  ck_assert_int_eq(status_code, FAILURE);
+  A.matrix[1][1] = NAN;
+  status_code = s21_eq_matrix(&A, &B);
+  ck_assert_int_eq(status_code, FAILURE);
+  A.matrix[1][1] = INFINITY;
+  status_code = s21_eq_matrix(&A, &B);
+  ck_assert_int_eq(status_code, FAILURE);
+  A.rows = 0;
+  status_code = s21_eq_matrix(&A, &B);
+  ck_assert_int_eq(status_code, FAILURE);
+  A.rows = 2;
+  status_code = s21_eq_matrix(&A, NULL);
+  ck_assert_int_eq(status_code, FAILURE);
+  status_code = s21_eq_matrix(NULL, &B);
+  ck_assert_int_eq(status_code, FAILURE);
+  s21_remove_matrix(&A);
+  s21_remove_matrix(&B);
+}
+END_TEST
+
 #endif
