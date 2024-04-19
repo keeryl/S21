@@ -79,4 +79,34 @@ START_TEST(equal_matrix) {
 }
 END_TEST
 
+START_TEST(equal_matrix_1) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  A.matrix[0][0] = 1.00000012;
+  A.matrix[0][1] = 1;
+  A.matrix[0][2] = 1;
+  A.matrix[1][0] = 1;
+  A.matrix[1][1] = 1;
+  A.matrix[1][2] = 1;
+  A.matrix[2][0] = 1;
+  A.matrix[2][1] = 1;
+  A.matrix[2][2] = 1;
+  matrix_t B = {0};
+  s21_create_matrix(3, 3, &B);
+  B.matrix[0][0] = 1.00000011;
+  B.matrix[0][1] = 1;
+  B.matrix[0][2] = 1;
+  B.matrix[1][0] = 1;
+  B.matrix[1][1] = 1;
+  B.matrix[1][2] = 1;
+  B.matrix[2][0] = 1;
+  B.matrix[2][1] = 1;
+  B.matrix[2][2] = 1;
+  int status_code = s21_eq_matrix(&A, &B);
+  ck_assert_int_eq(status_code, SUCCESS);
+  s21_remove_matrix(&A);
+  s21_remove_matrix(&B);
+}
+END_TEST
+
 #endif
