@@ -22,4 +22,10 @@ START_TEST(create_matrix_1) {
 }
 END_TEST
 
+START_TEST(create_matrix_2) {
+  int status_code = s21_create_matrix(3, 3, NULL);
+  ck_assert_int_eq(status_code, INCORRECT);
+}
+END_TEST
+
 #endif
