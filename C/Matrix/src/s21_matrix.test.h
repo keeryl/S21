@@ -224,4 +224,38 @@ START_TEST(sum_matrix_4) {
 }
 END_TEST
 
+START_TEST(sub_matrix) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  A.matrix[0][0] = 1;
+  A.matrix[0][1] = 1;
+  A.matrix[0][2] = 1;
+  A.matrix[1][0] = 1;
+  A.matrix[1][1] = 1;
+  A.matrix[1][2] = 1;
+  A.matrix[2][0] = 1;
+  A.matrix[2][1] = 1;
+  A.matrix[2][2] = 1;
+  matrix_t B = {0};
+  s21_create_matrix(3, 3, &B);
+  B.matrix[0][0] = 1;
+  B.matrix[0][1] = 1;
+  B.matrix[0][2] = 1;
+  B.matrix[1][0] = 1;
+  B.matrix[1][1] = 1;
+  B.matrix[1][2] = 1;
+  B.matrix[2][0] = 1;
+  B.matrix[2][1] = 1;
+  B.matrix[2][2] = 1;
+  matrix_t res = {0};
+  int status_code = s21_sub_matrix(&A, &B, &res);
+  for (int i = 0; i < 3; i++)
+    for (int j = 0; j < 3; j++) ck_assert_double_eq(res.matrix[i][j], 0.0);
+  ck_assert_int_eq(status_code, OK);
+  s21_remove_matrix(&A);
+  s21_remove_matrix(&B);
+  s21_remove_matrix(&res);
+}
+END_TEST
+
 #endif
