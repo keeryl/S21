@@ -327,4 +327,26 @@ START_TEST(sub_matrix_4) {
 }
 END_TEST
 
+START_TEST(mult_number) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  A.matrix[0][0] = 2;
+  A.matrix[0][1] = 2;
+  A.matrix[0][2] = 2;
+  A.matrix[1][0] = 2;
+  A.matrix[1][1] = 2;
+  A.matrix[1][2] = 2;
+  A.matrix[2][0] = 2;
+  A.matrix[2][1] = 2;
+  A.matrix[2][2] = 2;
+  matrix_t res = {0};
+  int status_code = s21_mult_number(&A, 2.0, &res);
+  for (int i = 0; i < 3; i++)
+    for (int j = 0; j < 3; j++) ck_assert_double_eq(res.matrix[i][j], 4.0);
+  ck_assert_int_eq(status_code, OK);
+  s21_remove_matrix(&A);
+  s21_remove_matrix(&res);
+}
+END_TEST
+
 #endif
