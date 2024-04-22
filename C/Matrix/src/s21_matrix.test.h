@@ -349,4 +349,13 @@ START_TEST(mult_number) {
 }
 END_TEST
 
+START_TEST(mult_number_1) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  int status_code = s21_mult_number(&A, 2.0, NULL);
+  ck_assert_int_eq(status_code, INCORRECT);
+  s21_remove_matrix(&A);
+}
+END_TEST
+
 #endif
