@@ -396,4 +396,14 @@ START_TEST(mult_number_3) {
 }
 END_TEST
 
+START_TEST(mult_number_4) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  matrix_t res = {0};
+  int status_code = s21_mult_number(&A, NAN, &res);
+  ck_assert_int_eq(status_code, CALC_ERR);
+  s21_remove_matrix(&A);
+}
+END_TEST
+
 #endif
