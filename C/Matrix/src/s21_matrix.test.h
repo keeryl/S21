@@ -455,5 +455,18 @@ START_TEST(mult_matrix_1) {
   s21_remove_matrix(&res);
   s21_remove_matrix(&etalon_res);
 }
+END_TEST
+
+START_TEST(mult_matrix_2) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  matrix_t B = {0};
+  s21_create_matrix(3, 3, &B);
+  int status_code = s21_mult_matrix(&A, &B, NULL);
+  ck_assert_int_eq(status_code, INCORRECT);
+  s21_remove_matrix(&A);
+  s21_remove_matrix(&B);
+}
+END_TEST
 
 #endif
