@@ -416,4 +416,44 @@ START_TEST(mult_number_5) {
 }
 END_TEST
 
+START_TEST(mult_matrix_1) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 2, &A);
+  A.matrix[0][0] = 1;
+  A.matrix[0][1] = 4;
+  A.matrix[1][0] = 2;
+  A.matrix[1][1] = 5;
+  A.matrix[2][0] = 3;
+  A.matrix[2][1] = 6;
+  matrix_t B = {0};
+  s21_create_matrix(2, 3, &B);
+  B.matrix[0][0] = 1;
+  B.matrix[0][1] = -1;
+  B.matrix[0][2] = 1;
+  B.matrix[1][0] = 2;
+  B.matrix[1][1] = 3;
+  B.matrix[1][2] = 4;
+  matrix_t etalon_res = {0};
+  s21_create_matrix(3, 3, &etalon_res);
+  etalon_res.matrix[0][0] = 9;
+  etalon_res.matrix[0][1] = 11;
+  etalon_res.matrix[0][2] = 17;
+  etalon_res.matrix[1][0] = 12;
+  etalon_res.matrix[1][1] = 13;
+  etalon_res.matrix[1][2] = 22;
+  etalon_res.matrix[2][0] = 15;
+  etalon_res.matrix[2][1] = 15;
+  etalon_res.matrix[2][2] = 27;
+  matrix_t res = {0};
+  int status_code = s21_mult_matrix(&A, &B, &res);
+  for (int i = 0; i < etalon_res.rows; i++)
+    for (int j = 0; j < etalon_res.columns; j++)
+      ck_assert_double_eq(res.matrix[i][j], etalon_res.matrix[i][j]);
+  ck_assert_int_eq(status_code, OK);
+  s21_remove_matrix(&A);
+  s21_remove_matrix(&B);
+  s21_remove_matrix(&res);
+  s21_remove_matrix(&etalon_res);
+}
+
 #endif
