@@ -513,4 +513,17 @@ START_TEST(mult_matrix_4) {
 }
 END_TEST
 
+START_TEST(mult_matrix_5) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  matrix_t B = {0};
+  s21_create_matrix(3, 2, &B);
+  matrix_t res = {0};
+  int status_code = s21_mult_matrix(&A, &B, &res);
+  ck_assert_int_eq(status_code, CALC_ERR);
+  s21_remove_matrix(&A);
+  s21_remove_matrix(&B);
+}
+END_TEST
+
 #endif
