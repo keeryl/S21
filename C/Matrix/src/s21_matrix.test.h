@@ -567,4 +567,20 @@ START_TEST(transpose_1) {
 }
 END_TEST
 
+START_TEST(transpose_2) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  int status_code = s21_transpose(&A, NULL);
+  ck_assert_int_eq(status_code, INCORRECT);
+  s21_remove_matrix(&A);
+}
+END_TEST
+
+START_TEST(transpose_3) {
+  matrix_t res = {0};
+  int status_code = s21_transpose(NULL, &res);
+  ck_assert_int_eq(status_code, INCORRECT);
+}
+END_TEST
+
 #endif
