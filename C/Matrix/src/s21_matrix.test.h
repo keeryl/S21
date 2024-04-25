@@ -526,4 +526,45 @@ START_TEST(mult_matrix_5) {
 }
 END_TEST
 
+START_TEST(transpose_1) {
+  // 1 2 3
+  // 4 5 6
+  // 7 8 9
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  A.matrix[0][0] = 1;
+  A.matrix[0][1] = 2;
+  A.matrix[0][2] = 3;
+  A.matrix[1][0] = 4;
+  A.matrix[1][1] = 5;
+  A.matrix[1][2] = 6;
+  A.matrix[2][0] = 7;
+  A.matrix[2][1] = 8;
+  A.matrix[2][2] = 9;
+  // 1 4 7
+  // 2 5 8
+  // 3 6 9
+  matrix_t etalon_res = {0};
+  s21_create_matrix(3, 3, &etalon_res);
+  etalon_res.matrix[0][0] = 1;
+  etalon_res.matrix[0][1] = 4;
+  etalon_res.matrix[0][2] = 7;
+  etalon_res.matrix[1][0] = 2;
+  etalon_res.matrix[1][1] = 5;
+  etalon_res.matrix[1][2] = 8;
+  etalon_res.matrix[2][0] = 3;
+  etalon_res.matrix[2][1] = 6;
+  etalon_res.matrix[2][2] = 9;
+  matrix_t res = {0};
+  int status_code = s21_transpose(&A, &res);
+  for (int i = 0; i < etalon_res.rows; i++)
+    for (int j = 0; j < etalon_res.columns; j++)
+      ck_assert_double_eq(res.matrix[i][j], etalon_res.matrix[i][j]);
+  ck_assert_int_eq(status_code, OK);
+  s21_remove_matrix(&A);
+  s21_remove_matrix(&res);
+  s21_remove_matrix(&etalon_res);
+}
+END_TEST
+
 #endif
