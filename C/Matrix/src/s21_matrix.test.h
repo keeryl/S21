@@ -681,4 +681,11 @@ START_TEST(calc_complements_5) {
 }
 END_TEST
 
+START_TEST(calc_complements_6) {
+  matrix_t res = {0};
+  int status_code = s21_calc_complements(NULL, &res);
+  ck_assert_int_eq(status_code, INCORRECT);
+}
+END_TEST
+
 #endif
