@@ -688,4 +688,24 @@ START_TEST(calc_complements_6) {
 }
 END_TEST
 
+START_TEST(determinant_1) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  A.matrix[0][0] = 1;
+  A.matrix[0][1] = 2;
+  A.matrix[0][2] = 3;
+  A.matrix[1][0] = 4;
+  A.matrix[1][1] = 5;
+  A.matrix[1][2] = 6;
+  A.matrix[2][0] = 7;
+  A.matrix[2][1] = 8;
+  A.matrix[2][2] = 9;
+  double res = -1, etalon_res = 0.0;
+  int status_code = s21_determinant(&A, &res);
+  ck_assert_double_eq(res, etalon_res);
+  ck_assert_int_eq(status_code, OK);
+  s21_remove_matrix(&A);
+}
+END_TEST
+
 #endif
