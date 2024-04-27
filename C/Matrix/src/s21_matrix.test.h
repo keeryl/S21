@@ -728,4 +728,14 @@ START_TEST(determinant_2) {
 }
 END_TEST
 
+START_TEST(determinant_3) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 2, &A);
+  double res = -1;
+  int status_code = s21_determinant(&A, &res);
+  ck_assert_int_eq(status_code, CALC_ERR);
+  s21_remove_matrix(&A);
+}
+END_TEST
+
 #endif
