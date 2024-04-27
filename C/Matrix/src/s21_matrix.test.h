@@ -766,4 +766,23 @@ START_TEST(determinant_5) {
 }
 END_TEST
 
+START_TEST(determinant_6) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  A.matrix[0][0] = INFINITY;
+  A.matrix[0][1] = 8;
+  A.matrix[0][2] = 10;
+  A.matrix[1][0] = -5;
+  A.matrix[1][1] = 1;
+  A.matrix[1][2] = 4;
+  A.matrix[2][0] = 3;
+  A.matrix[2][1] = 7;
+  A.matrix[2][2] = 13;
+  double res = -1;
+  int status_code = s21_determinant(&A, &res);
+  ck_assert_int_eq(status_code, CALC_ERR);
+  s21_remove_matrix(&A);
+}
+END_TEST
+
 #endif
