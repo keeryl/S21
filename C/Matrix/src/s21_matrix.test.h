@@ -871,4 +871,13 @@ START_TEST(inverse_4) {
 }
 END_TEST
 
+START_TEST(inverse_5) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  int status_code = s21_inverse_matrix(&A, NULL);
+  ck_assert_int_eq(status_code, INCORRECT);
+  s21_remove_matrix(&A);
+}
+END_TEST
+
 #endif
