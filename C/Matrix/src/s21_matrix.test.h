@@ -880,4 +880,23 @@ START_TEST(inverse_5) {
 }
 END_TEST
 
+START_TEST(inverse_6) {
+  matrix_t A = {0};
+  s21_create_matrix(3, 3, &A);
+  A.matrix[0][0] = 0;
+  A.matrix[0][1] = 0;
+  A.matrix[0][2] = 0;
+  A.matrix[1][0] = 0;
+  A.matrix[1][1] = 0;
+  A.matrix[1][2] = 0;
+  A.matrix[2][0] = 0;
+  A.matrix[2][1] = 0;
+  A.matrix[2][2] = 0;
+  matrix_t res = {0};
+  int status_code = s21_inverse_matrix(&A, &res);
+  ck_assert_int_eq(status_code, CALC_ERR);
+  s21_remove_matrix(&A);
+}
+END_TEST
+
 #endif
