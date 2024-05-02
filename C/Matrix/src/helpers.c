@@ -30,3 +30,10 @@ int is_diff_size(const matrix_t *A, const matrix_t *B) {
   if (A->rows != B->rows || A->columns != B->columns) res = 1;
   return res;
 }
+
+void mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
+  for (int i = 0; i < A->rows; i++)
+    for (int j = 0; j < B->columns; j++)
+      for (int k = 0; k < A->columns; k++)
+        result->matrix[i][j] += A->matrix[i][k] * B->matrix[k][j];
+}
