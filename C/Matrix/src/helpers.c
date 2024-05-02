@@ -37,3 +37,15 @@ void mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
       for (int k = 0; k < A->columns; k++)
         result->matrix[i][j] += A->matrix[i][k] * B->matrix[k][j];
 }
+
+void get_minor(matrix_t *A, matrix_t *temp, int ex_row, int ex_col) {
+  for (int i = 0, temp_row = 0; i < A->rows; i++) {
+    for (int j = 0, temp_col = 0; j < A->columns; j++) {
+      if (i != ex_row && j != ex_col) {
+        temp->matrix[temp_row][temp_col] = A->matrix[i][j];
+        temp_col++;
+      }
+    }
+    if (i != ex_row) temp_row++;
+  }
+}
