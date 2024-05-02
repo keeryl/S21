@@ -18,3 +18,9 @@ int is_equal(const matrix_t *A, const matrix_t *B, int row, int col) {
   if (fabs(A->matrix[row][col] - B->matrix[row][col]) > 1e-08) res = 0;
   return res;
 }
+
+int is_incorrect_mat(const matrix_t *A) {
+  int res = 0;
+  if (!A || !A->matrix || A->columns < 1 || A->rows < 1) res = 1;
+  return res;
+}
