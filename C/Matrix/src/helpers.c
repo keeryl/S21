@@ -24,3 +24,9 @@ int is_incorrect_mat(const matrix_t *A) {
   if (!A || !A->matrix || A->columns < 1 || A->rows < 1) res = 1;
   return res;
 }
+
+int is_diff_size(const matrix_t *A, const matrix_t *B) {
+  int res = 0;
+  if (A->rows != B->rows || A->columns != B->columns) res = 1;
+  return res;
+}
