@@ -19,3 +19,17 @@ bool S21Matrix::isinf_or_nan() const {
       if (isnan((*this)(i, j)) || isinf((*this)(i, j))) res = true;
   return res;
 }
+
+S21Matrix S21Matrix::get_minor(int ex_row, int ex_col) {
+  S21Matrix res(rows_ - 1, cols_ - 1);
+  for (int i = 0, temp_row = 0; i < rows_; i++) {
+    for (int j = 0, temp_col = 0; j < cols_; j++) {
+      if (i != ex_row && j != ex_col) {
+        res(temp_row, temp_col) = (*this)(i, j);
+        temp_col++;
+      }
+    }
+    if (i != ex_row) temp_row++;
+  }
+  return res;
+}
