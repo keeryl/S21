@@ -33,3 +33,9 @@ S21Matrix S21Matrix::get_minor(int ex_row, int ex_col) {
   }
   return res;
 }
+
+S21Matrix::S21Matrix() {
+  this->rows_ = 0;
+  this->cols_ = 0;
+  this->matrix_ = nullptr;
+}
