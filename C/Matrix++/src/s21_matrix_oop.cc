@@ -11,3 +11,11 @@ const double& S21Matrix::get_matrix_element(int row, int col) const {
     throw std::out_of_range("Incorrect input for (), index is out of range.");
   return this->matrix_[row][col];
 }
+
+bool S21Matrix::isinf_or_nan() const {
+  bool res = false;
+  for (int i = 0; i < rows_; i++)
+    for (int j = 0; j < cols_; j++)
+      if (isnan((*this)(i, j)) || isinf((*this)(i, j))) res = true;
+  return res;
+}
