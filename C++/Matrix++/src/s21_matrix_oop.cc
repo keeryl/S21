@@ -47,3 +47,5 @@ S21Matrix::S21Matrix(int rows, int cols) {
   this->cols_ = cols;
   this->allocate_memory_();
 }
+
+S21Matrix::S21Matrix(const S21Matrix& other) { *this = other; }
