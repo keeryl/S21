@@ -39,3 +39,11 @@ S21Matrix::S21Matrix() {
   this->cols_ = 0;
   this->matrix_ = nullptr;
 }
+
+S21Matrix::S21Matrix(int rows, int cols) {
+  if (rows < 1 || cols < 1)
+    throw std::length_error("Invalid rows/cols size - can't be less than 1");
+  this->rows_ = rows;
+  this->cols_ = cols;
+  this->allocate_memory_();
+}
