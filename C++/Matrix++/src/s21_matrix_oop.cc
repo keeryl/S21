@@ -49,3 +49,14 @@ S21Matrix::S21Matrix(int rows, int cols) {
 }
 
 S21Matrix::S21Matrix(const S21Matrix& other) { *this = other; }
+
+S21Matrix& S21Matrix::operator=(const S21Matrix& other) {
+  if (this != &other) {
+    this->rows_ = other.rows_;
+    this->cols_ = other.cols_;
+    this->allocate_memory_();
+    for (int i = 0; i < this->rows_; i++)
+      for (int j = 0; j < this->cols_; j++) (*this)(i, j) = other(i, j);
+  }
+  return *this;
+}
