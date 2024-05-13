@@ -81,3 +81,11 @@ S21Matrix& S21Matrix::operator=(S21Matrix&& other) noexcept {
   }
   return *this;
 }
+
+S21Matrix::~S21Matrix() {
+  for (int i = 0; i < this->rows_; i++) delete[] this->matrix_[i];
+  delete[] this->matrix_;
+  this->matrix_ = nullptr;
+  this->rows_ = 0;
+  this->cols_ = 0;
+}
