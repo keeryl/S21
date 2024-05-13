@@ -93,3 +93,7 @@ S21Matrix::~S21Matrix() {
 double& S21Matrix::operator()(int i, int j) {
   return const_cast<double&>(this->get_matrix_element(i, j));
 }
+
+double S21Matrix::operator()(int i, int j) const {
+  return this->get_matrix_element(i, j);
+}
