@@ -60,3 +60,10 @@ S21Matrix& S21Matrix::operator=(const S21Matrix& other) {
   }
   return *this;
 }
+
+S21Matrix::S21Matrix(S21Matrix&& other) noexcept {
+  this->matrix_ = nullptr;
+  this->rows_ = 0;
+  this->cols_ = 0;
+  *this = std::move(other);
+}
