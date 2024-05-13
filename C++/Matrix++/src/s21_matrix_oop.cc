@@ -97,3 +97,7 @@ double& S21Matrix::operator()(int i, int j) {
 double S21Matrix::operator()(int i, int j) const {
   return this->get_matrix_element(i, j);
 }
+
+bool S21Matrix::operator==(const S21Matrix& other) {
+  return this->EqMatrix(other);
+}
