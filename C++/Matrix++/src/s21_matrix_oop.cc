@@ -67,3 +67,17 @@ S21Matrix::S21Matrix(S21Matrix&& other) noexcept {
   this->cols_ = 0;
   *this = std::move(other);
 }
+
+S21Matrix& S21Matrix::operator=(S21Matrix&& other) noexcept {
+  if (this != &other) {
+    for (int i = 0; i < this->rows_; i++) delete[] this->matrix_[i];
+    delete[] this->matrix_;
+    this->matrix_ = other.matrix_;
+    other.matrix_ = nullptr;
+    this->rows_ = other.rows_;
+    this->cols_ = other.cols_;
+    other.rows_ = 0;
+    other.cols_ = 0;
+  }
+  return *this;
+}
