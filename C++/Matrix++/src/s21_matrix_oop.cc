@@ -106,3 +106,8 @@ S21Matrix S21Matrix::operator+=(const S21Matrix& other) {
   this->SumMatrix(other);
   return *this;
 }
+
+S21Matrix S21Matrix::operator-=(const S21Matrix& other) {
+  this->SubMatrix(other);
+  return *this;
+}
