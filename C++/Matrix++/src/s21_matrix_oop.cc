@@ -101,3 +101,8 @@ double S21Matrix::operator()(int i, int j) const {
 bool S21Matrix::operator==(const S21Matrix& other) {
   return this->EqMatrix(other);
 }
+
+S21Matrix S21Matrix::operator+=(const S21Matrix& other) {
+  this->SumMatrix(other);
+  return *this;
+}
