@@ -111,3 +111,8 @@ S21Matrix S21Matrix::operator-=(const S21Matrix& other) {
   this->SubMatrix(other);
   return *this;
 }
+
+S21Matrix S21Matrix::operator*=(const double num) {
+  this->MulNumber(num);
+  return *this;
+}
