@@ -136,3 +136,8 @@ S21Matrix S21Matrix::operator*(const S21Matrix& other) {
   (*this) *= other;
   return *this;
 }
+
+S21Matrix S21Matrix::operator*(const double num) {
+  (*this) *= num;
+  return *this;
+}
