@@ -173,3 +173,5 @@ void S21Matrix::set_cols(int cols) {
     }
   *this = std::move(temp);
 }
+
+double** S21Matrix::get_matrix() { return this->matrix_; }
