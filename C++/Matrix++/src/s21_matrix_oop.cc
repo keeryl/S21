@@ -143,3 +143,5 @@ S21Matrix S21Matrix::operator*(const double num) {
 }
 
 int S21Matrix::get_cols() { return this->cols_; }
+
+int S21Matrix::get_rows() { return this->rows_; }
