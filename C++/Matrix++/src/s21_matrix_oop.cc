@@ -159,3 +159,17 @@ void S21Matrix::set_rows(int rows) {
     }
   *this = std::move(temp);
 }
+
+void S21Matrix::set_cols(int cols) {
+  if (cols < 1)
+    throw std::length_error("Invalid cols size - can't be less than 1");
+  S21Matrix temp(this->rows_, cols);
+  for (int i = 0; i < temp.get_rows(); i++)
+    for (int j = 0; j < temp.get_cols(); j++) {
+      if (j < cols_)
+        temp(i, j) = (*this)(i, j);
+      else
+        temp(i, j) = 0;
+    }
+  *this = std::move(temp);
+}
