@@ -145,3 +145,17 @@ S21Matrix S21Matrix::operator*(const double num) {
 int S21Matrix::get_cols() { return this->cols_; }
 
 int S21Matrix::get_rows() { return this->rows_; }
+
+void S21Matrix::set_rows(int rows) {
+  if (rows < 1)
+    throw std::length_error("Invalid rows size - can't be less than 1");
+  S21Matrix temp(rows, this->cols_);
+  for (int i = 0; i < temp.get_rows(); i++)
+    for (int j = 0; j < temp.get_cols(); j++) {
+      if (i < rows_)
+        temp(i, j) = (*this)(i, j);
+      else
+        temp(i, j) = 0;
+    }
+  *this = std::move(temp);
+}
