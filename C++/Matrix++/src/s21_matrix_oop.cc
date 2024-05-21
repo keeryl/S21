@@ -194,3 +194,10 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) {
   }
   return res;
 }
+
+void S21Matrix::SumMatrix(const S21Matrix& other) {
+  if (rows_ != other.rows_ || cols_ != other.cols_)
+    throw std::logic_error("Different matrixes size - SumMatrix");
+  for (int i = 0; i < rows_; i++)
+    for (int j = 0; j < cols_; j++) (*this)(i, j) += other(i, j);
+}
