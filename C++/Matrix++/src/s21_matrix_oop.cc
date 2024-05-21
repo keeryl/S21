@@ -201,3 +201,10 @@ void S21Matrix::SumMatrix(const S21Matrix& other) {
   for (int i = 0; i < rows_; i++)
     for (int j = 0; j < cols_; j++) (*this)(i, j) += other(i, j);
 }
+
+void S21Matrix::SubMatrix(const S21Matrix& other) {
+  if (rows_ != other.rows_ || cols_ != other.cols_)
+    throw std::logic_error("Different matrixes size - SubMatrix");
+  for (int i = 0; i < rows_; i++)
+    for (int j = 0; j < cols_; j++) (*this)(i, j) -= other(i, j);
+}
