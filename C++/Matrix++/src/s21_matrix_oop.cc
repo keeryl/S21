@@ -264,3 +264,10 @@ double S21Matrix::Determinant() {
   }
   return res;
 }
+
+S21Matrix S21Matrix::InverseMatrix() {
+  double determinant = this->Determinant();
+  if (determinant == 0)
+    throw std::logic_error("Determinant must be non-zero - InverseMatrix");
+  return this->CalcComplements().Transpose() * (1 / determinant);
+}
