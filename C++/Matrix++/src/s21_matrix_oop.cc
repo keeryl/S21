@@ -230,3 +230,17 @@ S21Matrix S21Matrix::Transpose() {
     for (int j = 0; j < cols_; j++) res(j, i) = (*this)(i, j);
   return res;
 }
+
+S21Matrix S21Matrix::CalcComplements() {
+  if (cols_ != rows_)
+    throw std::logic_error("Matrix is not square - CalcComplements");
+
+  S21Matrix res(rows_, cols_);
+  for (int i = 0; i < rows_; i++)
+    for (int j = 0; j < cols_; j++) {
+      S21Matrix minor = this->get_minor(i, j);
+      double det_temp = minor.Determinant();
+      res(i, j) = pow(-1, i + j) * det_temp;
+    }
+  return res;
+}
