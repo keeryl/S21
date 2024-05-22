@@ -244,3 +244,23 @@ S21Matrix S21Matrix::CalcComplements() {
     }
   return res;
 }
+
+double S21Matrix::Determinant() {
+  if (cols_ != rows_)
+    throw std::logic_error("Matrix is not square - Determinant");
+  double res = 0;
+  if (this->get_rows() == 1)
+    res = (*this)(0, 0);
+  else {
+    double det = 0;
+    int sign = 1;
+    for (int i = 0; i < rows_; i++) {
+      S21Matrix minor = this->get_minor(i, 0);
+      res = minor.Determinant();
+      det += sign * (*this)(i, 0) * res;
+      sign *= -1;
+    }
+    res = det;
+  }
+  return res;
+}
