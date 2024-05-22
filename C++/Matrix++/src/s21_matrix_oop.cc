@@ -223,3 +223,10 @@ void S21Matrix::MulMatrix(const S21Matrix& other) {
       for (int k = 0; k < cols_; k++) res(i, j) += (*this)(i, k) * other(k, j);
   *this = std::move(res);
 }
+
+S21Matrix S21Matrix::Transpose() {
+  S21Matrix res(cols_, rows_);
+  for (int i = 0; i < rows_; i++)
+    for (int j = 0; j < cols_; j++) res(j, i) = (*this)(i, j);
+  return res;
+}
