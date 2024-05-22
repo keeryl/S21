@@ -213,3 +213,13 @@ void S21Matrix::MulNumber(const double num) {
   for (int i = 0; i < rows_; i++)
     for (int j = 0; j < cols_; j++) (*this)(i, j) *= num;
 }
+
+void S21Matrix::MulMatrix(const S21Matrix& other) {
+  if (cols_ != other.rows_)
+    throw std::logic_error("cols_ != other.rows_ - MulMatrix");
+  S21Matrix res(rows_, other.cols_);
+  for (int i = 0; i < rows_; i++)
+    for (int j = 0; j < other.cols_; j++)
+      for (int k = 0; k < cols_; k++) res(i, j) += (*this)(i, k) * other(k, j);
+  *this = std::move(res);
+}
