@@ -21,4 +21,8 @@ TEST(Constructors, param_constructor) {
   EXPECT_NE(matrix.get_matrix(), nullptr);
 }
 
+TEST(Constructors, param_constructor_exception) {
+  EXPECT_THROW(S21Matrix matrix(3, 0), std::length_error);
+}
+
 #endif
