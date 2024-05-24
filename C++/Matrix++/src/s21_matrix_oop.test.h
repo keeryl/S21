@@ -5,4 +5,13 @@
 
 #include "s21_matrix_oop.h"
 
+// CONSTRUCTORS TEST
+
+TEST(Constructors, default_constructor) {
+  S21Matrix matrix;
+  EXPECT_EQ(matrix.get_rows(), 0);
+  EXPECT_EQ(matrix.get_cols(), 0);
+  EXPECT_EQ(matrix.get_matrix(), nullptr);
+}
+
 #endif
