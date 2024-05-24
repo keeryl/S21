@@ -14,4 +14,11 @@ TEST(Constructors, default_constructor) {
   EXPECT_EQ(matrix.get_matrix(), nullptr);
 }
 
+TEST(Constructors, param_constructor) {
+  S21Matrix matrix(3, 3);
+  EXPECT_EQ(matrix.get_rows(), 3);
+  EXPECT_EQ(matrix.get_cols(), 3);
+  EXPECT_NE(matrix.get_matrix(), nullptr);
+}
+
 #endif
