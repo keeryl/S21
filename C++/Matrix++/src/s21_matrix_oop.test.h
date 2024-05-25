@@ -77,4 +77,15 @@ TEST(Constructors, move_operator) {
       EXPECT_EQ(matrix_2(i, j), 2.2);
 }
 
+// EQUALITY TEST
+
+TEST(EqMatrix, equal_check) {
+  S21Matrix matrix_1(2, 2);
+  for (int i = 0; i < matrix_1.get_rows(); i++)
+    for (int j = 0; j < matrix_1.get_cols(); j++) matrix_1(i, j) = 2.2;
+  S21Matrix matrix_2 = matrix_1;
+  bool res = matrix_1.EqMatrix(matrix_2);
+  EXPECT_TRUE(res);
+}
+
 #endif
