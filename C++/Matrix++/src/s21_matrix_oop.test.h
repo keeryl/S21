@@ -88,4 +88,12 @@ TEST(EqMatrix, equal_check) {
   EXPECT_TRUE(res);
 }
 
+TEST(EqMatrix, operator_check) {
+  S21Matrix matrix_1(2, 2);
+  for (int i = 0; i < matrix_1.get_rows(); i++)
+    for (int j = 0; j < matrix_1.get_cols(); j++) matrix_1(i, j) = 2.2;
+  S21Matrix matrix_2 = matrix_1;
+  EXPECT_TRUE(matrix_1 == matrix_2);
+}
+
 #endif
