@@ -38,4 +38,17 @@ TEST(Constructors, copy_constructor) {
       EXPECT_EQ(matrix_1(i, j), matrix_2(i, j));
 }
 
+TEST(Constructors, copy_operator) {
+  S21Matrix matrix_1(2, 2);
+  for (int i = 0; i < matrix_1.get_rows(); i++)
+    for (int j = 0; j < matrix_1.get_cols(); j++) matrix_1(i, j) = 2.2;
+  S21Matrix matrix_2 = matrix_1;
+  EXPECT_EQ(matrix_2.get_rows(), 2);
+  EXPECT_EQ(matrix_2.get_cols(), 2);
+  EXPECT_NE(matrix_2.get_matrix(), nullptr);
+  for (int i = 0; i < matrix_2.get_rows(); i++)
+    for (int j = 0; j < matrix_2.get_cols(); j++)
+      EXPECT_EQ(matrix_1(i, j), matrix_2(i, j));
+}
+
 #endif
