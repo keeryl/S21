@@ -96,4 +96,15 @@ TEST(EqMatrix, operator_check) {
   EXPECT_TRUE(matrix_1 == matrix_2);
 }
 
+TEST(EqMatrix, not_equal_check) {
+  S21Matrix matrix_1(2, 2);
+  S21Matrix matrix_2(2, 2);
+  for (int i = 0; i < matrix_1.get_rows(); i++)
+    for (int j = 0; j < matrix_1.get_cols(); j++) matrix_1(i, j) = 2.2;
+  for (int i = 0; i < matrix_1.get_rows(); i++)
+    for (int j = 0; j < matrix_1.get_cols(); j++) matrix_1(i, j) = 2.1;
+  bool res = matrix_1.EqMatrix(matrix_2);
+  EXPECT_FALSE(res);
+}
+
 #endif
