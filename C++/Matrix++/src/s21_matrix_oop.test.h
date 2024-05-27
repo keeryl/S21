@@ -151,4 +151,15 @@ TEST(EqMatrix, nan_check) {
   EXPECT_FALSE(res);
 }
 
+TEST(EqMatrix, inf_check) {
+  S21Matrix matrix_1(2, 2);
+  S21Matrix matrix_2(2, 2);
+  for (int i = 0; i < matrix_1.get_rows(); i++)
+    for (int j = 0; j < matrix_1.get_cols(); j++) matrix_1(i, j) = 1.00000022;
+  for (int i = 0; i < matrix_1.get_rows(); i++)
+    for (int j = 0; j < matrix_1.get_cols(); j++) matrix_2(i, j) = INFINITY;
+  bool res = matrix_1.EqMatrix(matrix_2);
+  EXPECT_FALSE(res);
+}
+
 #endif
