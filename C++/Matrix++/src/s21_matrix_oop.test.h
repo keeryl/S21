@@ -210,4 +210,16 @@ TEST(SumMatrix, operator_sum_test_1) {
     for (int j = 0; j < matrix_1.get_cols(); j++) EXPECT_EQ(matrix_1(i, j), 2);
 }
 
+TEST(SumMatrix, operator_sum_test_2) {
+  S21Matrix matrix_1(2, 2);
+  S21Matrix matrix_2(2, 2);
+  for (int i = 0; i < matrix_1.get_rows(); i++)
+    for (int j = 0; j < matrix_1.get_cols(); j++) matrix_1(i, j) = 1;
+  for (int i = 0; i < matrix_2.get_rows(); i++)
+    for (int j = 0; j < matrix_2.get_cols(); j++) matrix_2(i, j) = 1;
+  matrix_1 = matrix_1 + matrix_2;
+  for (int i = 0; i < matrix_1.get_rows(); i++)
+    for (int j = 0; j < matrix_1.get_cols(); j++) EXPECT_EQ(matrix_1(i, j), 2);
+}
+
 #endif
