@@ -331,4 +331,14 @@ TEST(SubMatrix, diff_rows_test) {
   EXPECT_THROW(matrix_1.SubMatrix(matrix_2), std::logic_error);
 }
 
+TEST(SubMatrix, diff_cols_test) {
+  S21Matrix matrix_1(2, 2);
+  S21Matrix matrix_2(2, 1);
+  for (int i = 0; i < matrix_1.get_rows(); i++)
+    for (int j = 0; j < matrix_1.get_cols(); j++) matrix_1(i, j) = 1;
+  for (int i = 0; i < matrix_2.get_rows(); i++)
+    for (int j = 0; j < matrix_2.get_cols(); j++) matrix_2(i, j) = 1;
+  EXPECT_THROW(matrix_1.SubMatrix(matrix_2), std::logic_error);
+}
+
 #endif
