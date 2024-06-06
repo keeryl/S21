@@ -381,4 +381,16 @@ TEST(SubMatrix, infinity_test_2) {
   EXPECT_THROW(matrix_1.SubMatrix(matrix_2), std::logic_error);
 }
 
+// MULTIPLICATION - NUMBER
+
+TEST(MulNumber, multiplication_test) {
+  S21Matrix matrix(2, 2);
+  for (int i = 0; i < matrix.get_rows(); i++)
+    for (int j = 0; j < matrix.get_cols(); j++) matrix(i, j) = 2;
+
+  matrix.MulNumber(2);
+  for (int i = 0; i < matrix.get_rows(); i++)
+    for (int j = 0; j < matrix.get_cols(); j++) EXPECT_EQ(matrix(i, j), 4);
+}
+
 #endif
