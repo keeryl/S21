@@ -393,4 +393,14 @@ TEST(MulNumber, multiplication_test) {
     for (int j = 0; j < matrix.get_cols(); j++) EXPECT_EQ(matrix(i, j), 4);
 }
 
+TEST(MulNumber, operator_test_1) {
+  S21Matrix matrix(2, 2);
+  for (int i = 0; i < matrix.get_rows(); i++)
+    for (int j = 0; j < matrix.get_cols(); j++) matrix(i, j) = 2;
+
+  matrix *= 2;
+  for (int i = 0; i < matrix.get_rows(); i++)
+    for (int j = 0; j < matrix.get_cols(); j++) EXPECT_EQ(matrix(i, j), 4);
+}
+
 #endif
