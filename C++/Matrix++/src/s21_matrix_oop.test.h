@@ -475,4 +475,34 @@ TEST(MulMatrix, operator_test_1) {
   EXPECT_TRUE(is_equal);
 }
 
+TEST(MulMatrix, operator_test_2) {
+  S21Matrix matrix_1(3, 2);
+  matrix_1(0, 0) = 1;
+  matrix_1(0, 1) = 4;
+  matrix_1(1, 0) = 2;
+  matrix_1(1, 1) = 5;
+  matrix_1(2, 0) = 3;
+  matrix_1(2, 1) = 6;
+  S21Matrix matrix_2(2, 3);
+  matrix_2(0, 0) = 1;
+  matrix_2(0, 1) = -1;
+  matrix_2(0, 2) = 1;
+  matrix_2(1, 0) = 2;
+  matrix_2(1, 1) = 3;
+  matrix_2(1, 2) = 4;
+  S21Matrix res(3, 3);
+  res(0, 0) = 9;
+  res(0, 1) = 11;
+  res(0, 2) = 17;
+  res(1, 0) = 12;
+  res(1, 1) = 13;
+  res(1, 2) = 22;
+  res(2, 0) = 15;
+  res(2, 1) = 15;
+  res(2, 2) = 27;
+  matrix_1 = matrix_1 * matrix_2;
+  bool is_equal = matrix_1 == res;
+  EXPECT_TRUE(is_equal);
+}
+
 #endif
