@@ -505,4 +505,10 @@ TEST(MulMatrix, operator_test_2) {
   EXPECT_TRUE(is_equal);
 }
 
+TEST(MulMatrix, col_row_diff) {
+  S21Matrix matrix_1(3, 2);
+  S21Matrix matrix_2(3, 3);
+  EXPECT_THROW(matrix_1.MulMatrix(matrix_2), std::logic_error);
+}
+
 #endif
