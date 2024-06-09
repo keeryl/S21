@@ -511,4 +511,31 @@ TEST(MulMatrix, col_row_diff) {
   EXPECT_THROW(matrix_1.MulMatrix(matrix_2), std::logic_error);
 }
 
+// TRANSPOSE
+
+TEST(Transpose, transposition_test) {
+  S21Matrix matrix_1(3, 3);
+  matrix_1(0, 0) = 1;
+  matrix_1(0, 1) = 2;
+  matrix_1(0, 2) = 3;
+  matrix_1(1, 0) = 4;
+  matrix_1(1, 1) = 5;
+  matrix_1(1, 2) = 6;
+  matrix_1(2, 0) = 7;
+  matrix_1(2, 1) = 8;
+  matrix_1(2, 2) = 9;
+  S21Matrix res(3, 3);
+  res(0, 0) = 1;
+  res(0, 1) = 4;
+  res(0, 2) = 7;
+  res(1, 0) = 2;
+  res(1, 1) = 5;
+  res(1, 2) = 8;
+  res(2, 0) = 3;
+  res(2, 1) = 6;
+  res(2, 2) = 9;
+  bool is_equal = matrix_1.Transpose() == res;
+  EXPECT_TRUE(is_equal);
+}
+
 #endif
