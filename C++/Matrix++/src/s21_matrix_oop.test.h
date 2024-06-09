@@ -588,4 +588,20 @@ TEST(Determinant, determinant_test_1) {
   EXPECT_EQ(res, etalon_res);
 }
 
+TEST(Determinant, determinant_test_2) {
+  S21Matrix matrix(3, 3);
+  matrix(0, 0) = 5;
+  matrix(0, 1) = 8;
+  matrix(0, 2) = 10;
+  matrix(1, 0) = -5;
+  matrix(1, 1) = 1;
+  matrix(1, 2) = 4;
+  matrix(2, 0) = 3;
+  matrix(2, 1) = 7;
+  matrix(2, 2) = 13;
+  double etalon_res = 161.0;
+  double res = matrix.Determinant();
+  EXPECT_EQ(res, etalon_res);
+}
+
 #endif
