@@ -538,4 +538,31 @@ TEST(Transpose, transposition_test) {
   EXPECT_TRUE(is_equal);
 }
 
+// CALC_COMPLEMENTS
+
+TEST(CalcComplements, calc_complements_test) {
+  S21Matrix matrix_1(3, 3);
+  matrix_1(0, 0) = 1;
+  matrix_1(0, 1) = 2;
+  matrix_1(0, 2) = 3;
+  matrix_1(1, 0) = 0;
+  matrix_1(1, 1) = 4;
+  matrix_1(1, 2) = 2;
+  matrix_1(2, 0) = 5;
+  matrix_1(2, 1) = 2;
+  matrix_1(2, 2) = 1;
+  S21Matrix res(3, 3);
+  res(0, 0) = 0;
+  res(0, 1) = 10;
+  res(0, 2) = -20;
+  res(1, 0) = 4;
+  res(1, 1) = -14;
+  res(1, 2) = 8;
+  res(2, 0) = -8;
+  res(2, 1) = -2;
+  res(2, 2) = 4;
+  bool is_equal = matrix_1.CalcComplements() == res;
+  EXPECT_TRUE(is_equal);
+}
+
 #endif
