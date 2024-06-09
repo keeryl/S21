@@ -570,4 +570,22 @@ TEST(CalcComplements, not_square_test) {
   EXPECT_THROW(matrix.CalcComplements(), std::logic_error);
 }
 
+// DETERMINANT
+
+TEST(Determinant, determinant_test_1) {
+  S21Matrix matrix(3, 3);
+  matrix(0, 0) = 1;
+  matrix(0, 1) = 2;
+  matrix(0, 2) = 3;
+  matrix(1, 0) = 4;
+  matrix(1, 1) = 5;
+  matrix(1, 2) = 6;
+  matrix(2, 0) = 7;
+  matrix(2, 1) = 8;
+  matrix(2, 2) = 9;
+  double etalon_res = 0.0;
+  double res = matrix.Determinant();
+  EXPECT_EQ(res, etalon_res);
+}
+
 #endif
