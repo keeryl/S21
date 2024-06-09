@@ -565,4 +565,9 @@ TEST(CalcComplements, calc_complements_test) {
   EXPECT_TRUE(is_equal);
 }
 
+TEST(CalcComplements, not_square_test) {
+  S21Matrix matrix(3, 2);
+  EXPECT_THROW(matrix.CalcComplements(), std::logic_error);
+}
+
 #endif
