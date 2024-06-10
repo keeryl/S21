@@ -652,4 +652,18 @@ TEST(Inverse, inverse_test) {
   EXPECT_TRUE(is_equal);
 }
 
+TEST(Inverse, zero_determinant_test) {
+  S21Matrix matrix_1(3, 3);
+  matrix_1(0, 0) = 1;
+  matrix_1(0, 1) = 2;
+  matrix_1(0, 2) = 3;
+  matrix_1(1, 0) = 4;
+  matrix_1(1, 1) = 5;
+  matrix_1(1, 2) = 6;
+  matrix_1(2, 0) = 7;
+  matrix_1(2, 1) = 8;
+  matrix_1(2, 2) = 9;
+  EXPECT_THROW(matrix_1.InverseMatrix(), std::logic_error);
+}
+
 #endif
