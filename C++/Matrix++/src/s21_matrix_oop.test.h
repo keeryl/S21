@@ -625,4 +625,31 @@ TEST(Determinant, not_square_test) {
   EXPECT_THROW(matrix.Determinant(), std::logic_error);
 }
 
+// INVERSE
+
+TEST(Inverse, inverse_test) {
+  S21Matrix matrix_1(3, 3);
+  matrix_1(0, 0) = 2;
+  matrix_1(0, 1) = 5;
+  matrix_1(0, 2) = 7;
+  matrix_1(1, 0) = 6;
+  matrix_1(1, 1) = 3;
+  matrix_1(1, 2) = 4;
+  matrix_1(2, 0) = 5;
+  matrix_1(2, 1) = -2;
+  matrix_1(2, 2) = -3;
+  S21Matrix res(3, 3);
+  res(0, 0) = 1;
+  res(0, 1) = -1;
+  res(0, 2) = 1;
+  res(1, 0) = -38;
+  res(1, 1) = 41;
+  res(1, 2) = -34;
+  res(2, 0) = 27;
+  res(2, 1) = -29;
+  res(2, 2) = 24;
+  bool is_equal = matrix_1.InverseMatrix() == res;
+  EXPECT_TRUE(is_equal);
+}
+
 #endif
