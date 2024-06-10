@@ -620,4 +620,9 @@ TEST(Determinant, determinant_test_3) {
   EXPECT_EQ(res, etalon_res);
 }
 
+TEST(Determinant, not_square_test) {
+  S21Matrix matrix(3, 2);
+  EXPECT_THROW(matrix.Determinant(), std::logic_error);
+}
+
 #endif
