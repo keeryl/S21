@@ -697,4 +697,27 @@ TEST(Set_rows, set_test_1) {
   EXPECT_TRUE(res);
 }
 
+TEST(Set_rows, set_test_2) {
+  S21Matrix matrix(3, 3);
+  matrix(0, 0) = 1;
+  matrix(0, 1) = 2;
+  matrix(0, 2) = 3;
+  matrix(1, 0) = 4;
+  matrix(1, 1) = 5;
+  matrix(1, 2) = 6;
+  matrix(2, 0) = 7;
+  matrix(2, 1) = 8;
+  matrix(2, 2) = 9;
+  S21Matrix etalon_res(2, 3);
+  etalon_res(0, 0) = 1;
+  etalon_res(0, 1) = 2;
+  etalon_res(0, 2) = 3;
+  etalon_res(1, 0) = 4;
+  etalon_res(1, 1) = 5;
+  etalon_res(1, 2) = 6;
+  matrix.set_rows(2);
+  bool res = matrix == etalon_res;
+  EXPECT_TRUE(res);
+}
+
 #endif
