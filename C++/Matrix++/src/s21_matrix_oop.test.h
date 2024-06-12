@@ -720,4 +720,9 @@ TEST(Set_rows, set_test_2) {
   EXPECT_TRUE(res);
 }
 
+TEST(Set_rows, test_invalid_rows) {
+  S21Matrix matrix(3, 3);
+  EXPECT_THROW(matrix.set_rows(0), std::length_error);
+}
+
 #endif
