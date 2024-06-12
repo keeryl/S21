@@ -756,4 +756,9 @@ TEST(Set_cols, set_test_1) {
   EXPECT_TRUE(res);
 }
 
+TEST(Set_cols, test_invalid_cols) {
+  S21Matrix matrix(3, 3);
+  EXPECT_THROW(matrix.set_cols(0), std::length_error);
+}
+
 #endif
