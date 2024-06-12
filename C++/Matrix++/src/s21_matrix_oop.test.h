@@ -725,4 +725,35 @@ TEST(Set_rows, test_invalid_rows) {
   EXPECT_THROW(matrix.set_rows(0), std::length_error);
 }
 
+// SET_COLS TEST
+
+TEST(Set_cols, set_test_1) {
+  S21Matrix matrix(3, 3);
+  matrix(0, 0) = 1;
+  matrix(0, 1) = 2;
+  matrix(0, 2) = 3;
+  matrix(1, 0) = 4;
+  matrix(1, 1) = 5;
+  matrix(1, 2) = 6;
+  matrix(2, 0) = 7;
+  matrix(2, 1) = 8;
+  matrix(2, 2) = 9;
+  S21Matrix etalon_res(3, 4);
+  etalon_res(0, 0) = 1;
+  etalon_res(0, 1) = 2;
+  etalon_res(0, 2) = 3;
+  etalon_res(0, 3) = 0;
+  etalon_res(1, 0) = 4;
+  etalon_res(1, 1) = 5;
+  etalon_res(1, 2) = 6;
+  etalon_res(1, 3) = 0;
+  etalon_res(2, 0) = 7;
+  etalon_res(2, 1) = 8;
+  etalon_res(2, 2) = 9;
+  etalon_res(2, 3) = 0;
+  matrix.set_cols(4);
+  bool res = matrix == etalon_res;
+  EXPECT_TRUE(res);
+}
+
 #endif
