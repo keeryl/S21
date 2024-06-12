@@ -769,4 +769,9 @@ TEST(Indexation, test_indexation) {
   EXPECT_EQ(matrix(1, 0), 3);
 }
 
+TEST(Indexation, out_of_range_test) {
+  S21Matrix matrix(3, 3);
+  EXPECT_THROW(matrix(3, 0), std::out_of_range);
+}
+
 #endif
