@@ -774,4 +774,9 @@ TEST(Indexation, out_of_range_test) {
   EXPECT_THROW(matrix(3, 0), std::out_of_range);
 }
 
+TEST(Indexation, matrix_nullptr_test) {
+  S21Matrix matrix;
+  EXPECT_THROW(matrix(3, 0), std::out_of_range);
+}
+
 #endif
