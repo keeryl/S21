@@ -761,4 +761,12 @@ TEST(Set_cols, test_invalid_cols) {
   EXPECT_THROW(matrix.set_cols(0), std::length_error);
 }
 
+// TEST INDEXATION
+
+TEST(Indexation, test_indexation) {
+  S21Matrix matrix(3, 3);
+  matrix(1, 0) = 3;
+  EXPECT_EQ(matrix(1, 0), 3);
+}
+
 #endif
