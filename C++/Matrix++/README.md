@@ -1,0 +1,1 @@
+This is the school 21 studnt's project - an implementation of library to process matrix operations.
